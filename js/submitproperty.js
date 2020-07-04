@@ -28,9 +28,9 @@ db.collection('properties').add({
       uid: firebase.auth().currentUser.uid,
       displayName: firebase.auth().currentUser.displayName,
       created: firebase.firestore.Timestamp.now(),
-      type = "Residential",
-      buy = true,
-      rent = false,
+      type: 'Residential',
+      buy: true,
+      rent: false,
 
       tagline: submitResidentialPropertyForm['tagline'].value,
       description: submitResidentialPropertyForm['description'].value,
