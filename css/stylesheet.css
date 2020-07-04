@@ -117,18 +117,22 @@ nav {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
   background-color: blue;
-  /*
-  height: 350px;
   width: 100%;
-  */
 }
 
 .carousel-control-prev, .carousel-control-next {
   opacity: 0.80;
 }
 
-.carousel-item img {
+.card .carousel-item img {
   object-fit: cover;
   object-position: center;
+  width: 100%;
+  height: 370px;
+}
+
+#viewPropertyCarousel .carousel-item img {
+  height: 500px;
+  object-fit: cover;
   width: 100%;
 }

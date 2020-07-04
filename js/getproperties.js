@@ -54,11 +54,7 @@ const setupProperties = (data) => {
     const property = doc.data();
     var imageURLS = await getImageURLS(property.images);
     var slides = getCarouselSlides(imageURLS, 3);
-
-    var address = property.address;
-    if (property.address2 != "" && property.address2 != null) {
-      address = property.address2 + ", " + address;
-    }
+    var address = getPropertyAddressString(property);
 
     card = `
     <div class="mb-3 card col-xl-8 col-lg-12 col-md-12 propertyResultCard">
@@ -129,12 +125,155 @@ function getCarouselSlides(imageURLS, maxSlides) {
       html += `<div class="carousel-item">`
     }
     html += `
-      <img style="height: 350px" class="d-block" src="${imageURLS[i]}">
+      <img style="" class="d-block" src="${imageURLS[i]}">
     </div>
     `;
   }
   return html;
 }
 
+// Given an id return the property doc
+async function getPropertyDoc(id) {
+  var docRef = db.collection("properties").doc(id);
+  var propertyDoc;
+  await docRef.get().then(function(doc) {
+    propertyDoc = doc;
+  }).catch((err)=> {
+    console.log(err.message);
+  });
+  return propertyDoc;
+}
+
+// Returns the property doc id from the page url
+// e.g view.html?abcd123 => abcd123
+function getPropertyIDFromURL() {
+  url = window.location.href ;
+  url = url.split("?");
+  return url.pop();
+}
+
+// Returns a string based on if the property has a second address line (i.e apartment floor etc.)
+function getPropertyAddressString(property) {
+  var address = property.address;
+  if (property.address2 != "" && property.address2 != null) {
+    address = property.address2 + ", " + address;
+  }
+  return address;
+}
+
+async function buildPropertyViewPage(id) {
+  var propertyDocID = getPropertyIDFromURL();
+  var doc = await getPropertyDoc(propertyDocID);
+  var property = doc.data();
+
+  var propertyAddressJumbotron = document.querySelector("#propertyAddressJumbotron");
+  var main = document.querySelector("main");
+  const address = getPropertyAddressString(property);
+  document.title = address;
+  var imageURLS = await getImageURLS(property.images);
+  var slides = getCarouselSlides(imageURLS, imageURLS.length);
+
+  var indicators = "";
+  for (i = 0; i < imageURLS.length; i++) {
+    if (i == 0) indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="active">`;
+    else indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="></li>`;
+  }
+
+  propertyAddressJumbotron.innerHTML = `
+  <div class="container">
+    <h1 class="display-4 text-light text-left"> ${address}, ${property.suburb} </h1>
+    <h2 class="display-5 text-light text-left"><small> ${property.district}, ${property.region}</small> </h2>
+  </div>
+  `;
+
+  var html = `
+  <div id="viewPropertyCarousel" class="carousel slide pt-0 mt-0" data-ride="carousel">
+    <ol class="carousel-indicators">
+      ${indicators}
+    </ol>
+    <div class="carousel-inner">
+      ${slides}
+    </div>
+    <a class="carousel-control-prev" href="#viewPropertyCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#viewPropertyCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>  <br>
+  `;
+
+  html += `
+  <div id="viewPropertyContent" class="container" style="margin-bottom: 150px;">
+    <div class="container">
+      <h2 style="color: rgba(56, 173, 169, 1);"> ${property.tagline} </h2>
+      <h4 class="text-muted"> ${property.type} </h4>
+      <h3 class=""> ${getMethodOfSaleString(property)}</h3>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="row">
+      <div class=" col">
+        <img style="height: 20px;"src="icons/bed.svg" alt="bedroom icon">
+        ${property.bedrooms} bedrooms
+
+      </div>
+      <div class=" col">
+        <img style="height: 20px;"src="icons/toilet.svg" alt="bedroom icon">
+        ${property.bathrooms} bathrooms
+      </div>
+      <div class=" col">
+      <img style="height: 20px;"src="icons/fence.svg" alt="land area icon">
+        ${property.landArea}m<sup>2</sup> land area
+      </div>
+      <div class=" col">
+      <img style="height: 20px;"src="icons/floorarea.svg" alt="floor area icon">
+        ${property.floorArea}m<sup>2</sup> floor area
+      </div>
+    </div>
+    </div>
+    <hr>
+    <div class="container">
+      <h3 class="text-muted"> Property details </h3>
+      <p>
+        ${property.description}
+      </p>
+    </div>
+    <hr>
+    <div class="container">
+      <h3 class="text-muted"> Property features </h3>
+      <div class="row">
+        <div class="container col">
+        <img style="height: 20px;"src="icons/garage.svg" alt="garage icon">
+          ${property.garages} garages
+        </div>
+        <div class="container col">
+        <img style="height: 20px;"src="icons/otherparks.svg" alt="car park icon">
+           ${property.parks} other parks
+        </div>
+        <div class="container col">
+        <img style="height: 20px;"src="icons/toilet.svg" alt="wcs icon">
+          ${property.wcs} WCS
+        </div>
+        <div class="container col">
+        <img style="height: 20px;"src="icons/stair.svg" alt="stairs icon">
+          ${property.storeys} storeys
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container  text-muted">
+      <div class="row">
+        <h6 class="col">ID#${doc.id}</h6>
+        <h6 class="col text-right">Date Listed: ${property.created.toDate().toString().substring(0, 15)}</h6>
+      </div>
+    </div>
+    <hr>
+  </div>
+  `;
+  main.innerHTML = html;
+}
 
 populateSearchSelector(regionSelector);
