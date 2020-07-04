@@ -15,6 +15,7 @@ firebase.analytics();
 // Make auth & firestore references
 var storage = firebase.storage();
 const auth = firebase.auth();
+const google = new firebase.auth.GoogleAuthProvider();
 const db = firebase.firestore();
 
 async function getRegionList() {
@@ -146,17 +147,16 @@ function getMethodOfSaleString(property) {
 function setupAuthUI(user) {
   const navbarQuickActions = document.getElementById("navbar-quickactions");
   if (user) {
-    var photoURL = user.photoURL;
-    if (photoURL == null) {
-      photoURL = "images/profile_image.png";
-    }
-    else {
+    var photoURL = null;
       //getUserProfileImage();
-      var gsReference = storage.refFromURL(user.photoURL);
-      gsReference.getDownloadURL().then(function(url) {
-        //url;
-      });
-    }
+      try {
+        var gsReference = storage.refFromURL(user.photoURL);
+        gsReference.getDownloadURL().then(function(url) {
+          photoURL = url;
+        });
+      } catch(err) {
+        photoURL = "images/profile_image.png";
+      }
     navbarQuickActions.innerHTML = `
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-user dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

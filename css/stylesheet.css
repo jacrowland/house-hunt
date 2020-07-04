@@ -68,7 +68,13 @@ nav {
   margin-left: 10px;
 }
 
+#GoogleSignInBtn {
+  transition: 0.1s ease;
+}
 
+#GoogleSignInBtn:hover {
+  filter: brightness(98%);
+}
 
 /* Homepage */
 

@@ -2,6 +2,7 @@
 //  Listen for Auth status changes
 //
 auth.onAuthStateChanged(user => {
+    console.log(user);
     setupAuthUI(user);
   });
 
@@ -12,6 +13,9 @@ const resetPasswordForm = document.querySelector("#resetPasswordForm");
 const forgotPasswordBtn = document.querySelector("#forgotPasswordBtn");
 const backToLoginBtn = document.querySelector("#backToLoginBtn");
 const goToSignUpFormBtn = document.querySelector("#goToSignUpFormBtn");
+
+const GoogleSignInBtn = document.querySelector("#GoogleSignInBtn");
+
 
 //  logout the user
 function logout() {
@@ -81,6 +85,29 @@ signUpForm.addEventListener('submit', function(e) {
     });
     signUpForm.reset();
   });
-}).catch(err => {
-  // An error has occurred
 });
+
+// Sign in with Google Account
+GoogleSignInBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  firebase.auth().signInWithRedirect(google);
+  firebase.auth().getRedirectResult().then(function(result) {
+    if (result.credential) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // ...
+    }
+    // The signed-in user info.
+    var user = result.user;
+    console.log(user);
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+})
