@@ -5,7 +5,7 @@ auth.onAuthStateChanged(user => {
     setupAuthUI(user);
   });
 
-/* login.html */
+// login.html
 const signUpForm = document.querySelector("#signUpForm");
 const loginForm = document.querySelector("#loginForm");
 const resetPasswordForm = document.querySelector("#resetPasswordForm");
