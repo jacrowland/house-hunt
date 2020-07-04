@@ -79,7 +79,7 @@ const setupProperties = (data) => {
           </div>
         </div>
         <div class="card-body col-md-6 col-sm-12">
-          <h5 class="card-title">${address}, ${property.suburb} </h5>
+          <h5 class="card-title"><a class="text-dark" href="view.html?${doc.id}">${address}, ${property.suburb} </a></h5>
           <h6>${property.district}<small> ${property.region}</small></h6>
           <hr>
           <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle mb-2"><strong>${property.tagline}</strong></h6>
