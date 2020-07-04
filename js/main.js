@@ -18,6 +18,7 @@ const auth = firebase.auth();
 const google = new firebase.auth.GoogleAuthProvider();
 const db = firebase.firestore();
 
+// Gets a list of regions from the 'regions' collection on firestore
 async function getRegionList() {
   var regionList = [];
   var snapshot = await db.collection("regions").get();
@@ -28,6 +29,7 @@ async function getRegionList() {
   return regionList;
 }
 
+// Gets a list of districts of a region, given a region, from the 'regions' collection on firestore
 async function getDistrictsList(region) {
   var districtList = [];
   var snapshot = await db.collection("regions").where('name', '==', region).get();
@@ -42,6 +44,7 @@ async function getDistrictsList(region) {
   return districtList;
 }
 
+// Gets a list of suburbs of a district from a region, given a region and district, from the 'regions' collection on firestore
 async function getSuburbsList(region, district) {
   var suburbsList = [];
   snapshot = await db.collection("regions").where('name', '==', region).get();
@@ -59,6 +62,7 @@ async function getSuburbsList(region, district) {
   return suburbsList;
 }
 
+// Adds contextually appropriate options to the Region, City/Town/District and Suburb/Area selectors of a search form
 async function populateSearchSelector(selector, selectedRegion, selectedDistrict) {
   var html = "";
   var regions = null;
@@ -146,6 +150,7 @@ function getMethodOfSaleString(property) {
 
 function setupAuthUI(user) {
   const navbarQuickActions = document.getElementById("navbar-quickactions");
+  // If the user is logged in a dropdown menu is displayed
   if (user) {
     var photoURL = null;
       //getUserProfileImage();
@@ -200,6 +205,7 @@ function setupAuthUI(user) {
     </div>
     `;
   }
+  // If the user is logged out a login button is displayed
   else {
     navbarQuickActions.innerHTML = `
     <a href="login.html" id="loginBtn"  class="btn btn-sm btn-user"> <small>Login</small>
