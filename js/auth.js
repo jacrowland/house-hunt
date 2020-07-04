@@ -92,6 +92,7 @@ GoogleSignInBtn.addEventListener("click", (e) => {
     }
     // The signed-in user info.
     var user = result.user;
+    window.location = "index.html";
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
