@@ -17,8 +17,7 @@ submitResidentialPropertyForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   // Method of sale (either true or false)
-  const advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;
-                                              // spelling error
+  const advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;                                      
   const negotiation = document.querySelector("#negotiationRadioBtn").checked;
   const tender = document.querySelector("#tenderRadioBtn").checked;
   const auction = document.querySelector("#auctionRadioBtn").checked;
