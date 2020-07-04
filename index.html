@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>House Hunt</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <style>
+
+  </style>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+
+  <!-- Cover header w/ iamge -->
+  <header id="home-cover">
+      <div class="container" style="height: inherit;">
+        <div class="row align-items-center" style="height: inherit;">
+          <div class="col-md-6 align-self-center">
+            <h1 class="page-header text-light">Hunt down your next home. With our smarter solutions that save you time.</h1>
+            <h5 class="text-light">We strive to make your relocation easy by providing you with a highly personalised, efficient and effective platform to minimise your stress.</h5>
+
+            <button class="mt-sm-1 btn btn-lg btn-light" onclick="window.location='residential.html'" id="actionBtn">
+              View properties now
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 8l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
+                <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+  </header>
+
+  <!-- Main Content -->
+  <main role="main" class="container">
+    <div class="container">
+    </div>
+  </main><!-- /.container -->
+  </body>
+  <!-- Footer -->
+    <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+      <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland </p>
+    </footer>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Set current page as active in nav
+      var homePageLink = document.querySelector("#homePageLink");
+      homePageLink.classList.add("active");
+    </script>
+</html>

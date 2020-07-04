@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>House Hunt</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+  <div class="jumbotron jumbotron-fluid text-light">
+    <div class="container">
+      <h1 class="display-4">Explore our properties</h1>
+      <p class="lead">View the residences within our database or hone in on your perfect place using our advanced search.</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main role="main" class="container">
+
+    <div class="container">
+      <form>
+      <h2> Search <small> Refine the hunt </small></h2>
+      <div class="form-group row">
+        <div class="col-md-2">
+          <label class="col-form-label" for="type"><small>Buy / Rent</small></label>
+          <select class="form-control" id="world">
+              <option value="Foundry Cove">Buy</option>
+              <option value="Courtyard Lane">Rent</option>
+          </select>
+        </div>
+          <div class="col-md-4">
+            <label class="col-form-label" for="region"><small>Region</small></label>
+            <select class="form-control" id="region">
+                <option value="Any">Any region</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="col-form-label" for="district"><small>City/Town/District/</small></label>
+            <select class="form-control" id="district" disabled>
+                <option value="Any">Any district</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="col-form-label" for="suburb"><small>Suburb/Area</small></label>
+            <select class="form-control" id="suburb" disabled>
+                <option value="Any">Any suburb</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="minBath"><small>Min. Bath</small></label>
+          <select class="form-control" id="minBath">
+            <option value="0">Any</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="1000000000">5+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="maxBath"><small>Max. Bath</small></label>
+          <select class="form-control" id="maxBath">
+            <option value="1000000000">Any</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="1000000000">5+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="minBed"><small>Min. Bed</small></label>
+          <select class="form-control" id="minBed">
+              <option selected="selected" value="0">Any</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="1000000000">5+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="maxBed"><small>Max. Bed</small></label>
+          <select class="form-control" id="maxBed">
+              <option selected="selected" value="1000000000">Any</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="1000000000">5+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="minPrice"><small>Min. Price</small></label>
+          <select class="form-control" id="minPrice">
+            <option value="">Any</option>
+            <option value="250000">$250k</option>
+            <option value="500000">$500k</option>
+            <option value="750000">$750k</option>
+            <option value="1000000">$1M</option>
+            <option value="2000000">$2M</option>
+            <option value="3000000">$3M</option>
+            <option value="4000000">$4M</option>
+            <option value="5000000">$5M+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <label class="col-form-label" for="maxPrice"><small>Max. Price</small></label>
+          <select class="form-control" id="maxPrice">
+              <option value="">Any</option>
+              <option value="250000">$250k</option>
+              <option value="500000">$500k</option>
+              <option value="750000">$750k</option>
+              <option value="1000000">$1M</option>
+              <option value="2000000">$2M</option>
+              <option value="3000000">$3M</option>
+              <option value="4000000">$4M</option>
+              <option value="5000000">$5M+</option>
+          </select>
+        </div>
+      </div>
+      <div class="text-right">
+        <button class=" btn btn-primary btn-md btn-block" type="submit">Search</button>
+    </div>
+    </form>
+  </div>
+    <hr>
+  <div class="container">
+  <div style="display:none" class="row" id="searchResults">
+    <!-- populated by getProperties.js -->
+  </div> <!-- row -->
+</div> <!-- container -->
+
+
+<div style="height:400px"></div>
+  </main><!-- /.container -->
+
+  <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+    <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland (2020) </p>
+  </footer>
+    </body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/getProperties.js"></script>
+    <script>
+      // Set current page as active in nav
+      var residentialPageLink = document.querySelector("#residentialPageLink");
+      residentialPageLink.classList.add("active");
+    </script>
+</html>

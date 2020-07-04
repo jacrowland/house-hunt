@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>House Hunt</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <style>
+  </style>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+  <!-- Main Content -->
+  <main role="main" class="h-75 container">
+    <div class="row align-items-center justify-content-center" style="margin-top: 10%;height: auto;padding: 20px;margin-bottom: 15%;">
+      <div class="col-lg-4 col-md-6">
+        <img class="mx-auto d-block" style="width: 300px;"src="images\house_hunt_logo.png">
+        <!-- Login form -->
+        <form style="margin-top: 20px;"id="loginForm">
+            <h3 class="text-center"> Sign in below </h3>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="email"><small>Email</small></label>
+                <input placeholder="myname@myprovider.com" type="email" placeholder="" class="form-control" id="email" required>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="password"><small>Password</small></label>
+                <input type="password" placeholder="" class="form-control" id="password" required>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-secondary" id="goToSignUpFormBtn">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                  <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                Sign up
+              </button>
+              <input class="btn btn-primary" type=submit value="Login"></input><br>
+              <button class="btn btn-link"  id="forgotPasswordBtn"> Forgot password </button>
+              <hr>
+              <!-- @TODO Implement Facebook and Google sign-in -->
+              <div class="row justify-content-center">
+                <button class="btn-sm btn-primary"> Sign in with Facebook </button>
+                <button class="ml-1 btn-sm btn-success"> Sign in with Google </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Sign up form -->
+        <form style="margin-top: 20px;display:none;" id="signUpForm">
+            <h3 class="text-center"> Sign up below </h3>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="signUpEmail"><small>Email</small></label>
+                <input placeholder="myname@myprovider.com" type="email" placeholder="" class="form-control" id="signUpEmail" required>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="displayName"><small>Display Name</small></label>
+                <input placeholder="John Smith" type="text" maxlength="10" placeholder="" class="form-control" id="displayName" required>
+                <small id="emailHelp" class="form-text text-muted">This is how other users will see you.</small>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="signUpPassword"><small>Password</small></label>
+                <input type="password" placeholder="" class="form-control" id="signUpPassword" required>
+                <small id="emailHelp" class="form-text text-muted">Must be atleast 6 characters long.</small>
+            </div>
+            <div class="text-center">
+              <a class="btn btn-secondary" href="login.html">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                  <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </a>
+              <input class="btn btn-primary" type=submit value="Confirm"></input>
+          </div>
+        </form>
+
+        <!-- Reset Password form -->
+        <form style="margin-top: 20px;display: none;" id="resetPasswordForm">
+            <h3 class="text-center"> Reset Password </h3>
+            <div class="form-group row">
+                <label class="col-form-label text-dark text-right" for="resetEmail"><small>Email</small></label>
+                <input type="email" placeholder="" class="form-control" id="resetEmail" required>
+            </div>
+            <div class="text-center">
+              <a class="btn btn-secondary" href="login.html">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                  <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </a>
+              <input class="btn btn-primary" type=submit value="Send Reset Link"></input>
+              <div style="margin-top: 20px;display:none;" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Please check your email (incl. spam!)
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div style="margin-top: 20px;display:none;" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>An error has occurred.</strong> Please try again.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main><!-- /.container -->
+    </body>
+
+    <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+      <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland </p>
+    </footer>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</html>

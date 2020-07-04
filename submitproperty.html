@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Submit a property</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <style>
+  </style>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+  <!-- Main Content -->
+  <div class="jumbotron text-light">
+    <h1 class="display-4 text-center"> Submit a residential property </h1>
+  </div>
+  <main role="main" class="container">
+
+      <div class="pt-3 pb-5 row justify-content-center">
+
+        <form name="submitproperty" class="col-lg-8 col-md-12" id="submitResidentialPropertyForm">
+          <div class="form-group">
+            <h2> Property Description </h2>
+            <label for="tagline"> <small>Tagline</small> </label>
+            <input class="col-sm-6 form-control" maxlength="50" type="text" placeholder="" id="tagline" required>
+            <label for="address2"> <small>Description</small> </label>
+            <textarea class="form-control" id="description" rows="4"></textarea>
+          </div> <!-- form group -->
+
+          <hr>
+
+          <div class="form-group">
+            <h2> Location </h3>
+              <label for="address"> <small>Address</small> </label>
+              <input class="form-control" type="text" placeholder="123 Fake Street" id="address" required>
+              <label for="address2"> <small>Address 2</small> </label>
+              <input class="form-control" type="text" placeholder="Apartment / Building / Floor" id="address2">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label" for="region"><small>Region</small></label>
+                <select class="form-control" id="region">
+                    <option value="Any">Any region</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label" for="district"><small>City/Town/District/</small></label>
+                <select class="form-control" id="district" disabled>
+                    <option value="Any">Any district</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label" for="suburb"><small>Suburb/Area</small></label>
+                <select class="form-control" id="suburb" disabled>
+                    <option value="Any">Any suburb</option>
+                </select>
+              </div>
+          </div> <!-- form group -->
+
+            <hr>
+
+          <div class="form-group">
+            <h2> Pricing </h2>
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <label for="titleType"><small>Title</small></label>
+                <select id="titleType" class="form-control" required>
+                  <option value="freehold" selected>Freehold</option>
+                  <option value="leasehold">Leasehold</option>
+                  <option value="unit title">Unit Title</option>
+                  <option value="cross lease">Cross lease</option>
+                </select>
+                <br>
+                <div class="row">
+                  <div class="col-md-6" id="methodOfSale">
+                      <label><small>Method of Sale</small></label>
+                      <div class="col-lg-6 form-check" >
+                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="auctionRadioBtn" value="auction" checked>
+                        <label class="form-check-label" for="auctionRadioBtn">
+                          Auction
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="tenderRadioBtn" value="tender">
+                        <label class="form-check-label" for="tenderRadioBtn">
+                          Tender
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="poaRadioBtn" value="POA">
+                        <label class="form-check-label" for="poaRadioBtn">
+                          Price on Application (POA)
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="negotiationRadioBtn" value="negotiation">
+                        <label class="form-check-label" for="negotiationRadioBtn">
+                          Negotiation
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="advertisedPriceRadioBtn" value="advertisedPrice">
+                        <label class="form-check-label" for="advertisedPriceRadioBtn">
+                          Advertised Price
+                        </label>
+                        <br>
+                      </div>
+                    </div>
+                    <div class="col-md-6" id="priceSelector" style="display:none">
+                      <label for="price"> <small>Price</small> </label>
+                      <input class="form-control" default="0" max="1000000000" min="0" type="number" id="price">
+                    </div>
+                  </div> <!-- row -->
+                </div> <!-- col -->
+              </div> <!-- row -->
+            </div> <!-- form group -->
+
+            <hr>
+
+            <div class="form-group">
+              <h2> Other info </h2>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="bed"> <small>Bedrooms</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="bed" required>
+                </div>
+                <div class="col-sm-3">
+                  <label for="bath"> <small>Bathrooms</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="bath" required>
+                </div>
+                <div class="col-sm-3">
+                  <label for="garage"> <small>Garages</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="garage" required>
+                </div>
+                <div class="col-sm-3">
+                  <label for="parks"> <small>Other parks</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="parks" required>
+                  <small>e.g. in the driveway </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="wcs"> <small>Water Closets</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="wcs" required>
+                </div>
+                <div class="col-sm-3">
+                  <label for="storeys"> <small>Storeys</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="storeys" required>
+                </div>
+                <div class="col-sm-3">
+                  <label for="landArea"> <small>Land Area</small></label>
+                  <div class="input-group mb-2">
+                    <input max="1000000000" min="0" type="number" class="form-control" id="landArea" placeholder="0" required>
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">m<sup>2</sup></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="floorArea"> <small>Floor Area</small> </label>
+                  <div class="input-group mb-2">
+                    <input max="1000000000" min="0" type="number" class="form-control" id="floorArea" placeholder="0" required>
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">m<sup>2</sup></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="ensuites"> <small>Ensuites</small> </label>
+                  <input class="form-control" max="25" min="0" type="number" placeholder="0" id="ensuites" required>
+                  <small>e.g. in the driveway </small>
+                </div>
+
+              </div>
+            </div> <!-- form group -->
+            <hr>
+            <div class="form-group" style="overflow: hidden; text-overflow: ellipsis;">
+              <h2> Images </h2>
+              <div class="custom-file" >
+                <input multiple accept=".jpeg, .jpg, .png" type="file" class="custom-file-input" id="imageFilePicker" required>
+                <label style="overflow:hidden;" class="custom-file-label" for="customFile">Choose file</label>
+                <small> Select at least one image to showcase the property. </small>
+              </div>
+            </div> <!-- form group -->
+            <input class="btn btn-block btn-success" type=submit value="Submit property"></input>
+        </form>
+      </div> <!-- row -->
+  </main><!-- /.container -->
+  </body>
+    <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+      <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland </p>
+    </footer>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/submitproperty.js"></script>
+    <script>
+    // If the method of sale is an 'Advertised Price' then user can enter a price
+    const methodOfSaleRadioBtnGroup = document.querySelector("#methodOfSale");
+    const advertisedPriceRadioBtn = document.querySelector("#advertisedPriceRadioBtn");
+    const priceSelector = document.querySelector("#priceSelector");
+
+    methodOfSaleRadioBtnGroup.addEventListener('click', (e) => {
+      if (advertisedPriceRadioBtn.checked) {
+        priceSelector.style.display = "";
+        priceSelector.required = true;
+      } else {
+        priceSelector.style.display = "none";
+        priceSelector.required = false;
+      }
+    });
+    </script>
+</html>
