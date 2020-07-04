@@ -116,7 +116,6 @@ nav {
 #carousel {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
-  background-color: blue;
   width: 100%;
 }
 
@@ -135,4 +134,10 @@ nav {
   height: 500px;
   object-fit: cover;
   width: 100%;
+}
+
+#propertyPath, #propertyPath a {
+  background-color: rgba(56, 173, 169, 1);
+  height: 30px;
+  color: white;
 }

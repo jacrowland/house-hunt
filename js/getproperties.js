@@ -162,32 +162,47 @@ function getPropertyAddressString(property) {
 }
 
 async function buildPropertyViewPage(id) {
-  var propertyDocID = getPropertyIDFromURL();
-  var doc = await getPropertyDoc(propertyDocID);
-  var property = doc.data();
-
-  var propertyAddressJumbotron = document.querySelector("#propertyAddressJumbotron");
-  var main = document.querySelector("main");
+  const propertyDocID = getPropertyIDFromURL();
+  const doc = await getPropertyDoc(propertyDocID);
+  const property = doc.data();
   const address = getPropertyAddressString(property);
-  document.title = address;
-  var imageURLS = await getImageURLS(property.images);
-  var slides = getCarouselSlides(imageURLS, imageURLS.length);
-
+  const imageURLS = await getImageURLS(property.images);
+  const slides = getCarouselSlides(imageURLS, imageURLS.length);
+  var main = document.querySelector("main");
+  var propertyPath = document.querySelector("#propertyPath");
+  var propertyAddressJumbotron = document.querySelector("#propertyAddressJumbotron");
   var indicators = "";
-  for (i = 0; i < imageURLS.length; i++) {
-    if (i == 0) indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="active">`;
-    else indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="></li>`;
-  }
 
-  propertyAddressJumbotron.innerHTML = `
+
+  document.title = address;
+
+  propertyPath.innerHTML = `
   <div class="container">
-    <h1 class="display-4 text-light text-left"> ${address}, ${property.suburb} </h1>
-    <h2 class="display-5 text-light text-left"><small> ${property.district}, ${property.region}</small> </h2>
+    <small id="path" class="align-middle text-light"> <a href="residential.html">listings</a> > ${property.region} > ${property.district} > ${property.suburb} </small>
   </div>
   `;
 
+// TODO: causing an issue with displaying the images
+
+  /*
+  for (i = 0; i < imageURLS.length; i++) {
+    if (i == 0) {
+      indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="active">`;
+    }
+    else {
+      indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="></li>`;
+    }
+  }
+  */
+
+  propertyAddressJumbotron.innerHTML =`
+  <div class="container">
+    <h1 class="display-4 text-light text-left"> ${address}, ${property.suburb}</h1>
+    <h2 class="display-5 text-light text-left"><small> ${property.district}, ${property.region}</small></h2>
+  </div>`;
+
   var html = `
-  <div id="viewPropertyCarousel" class="carousel slide pt-0 mt-0" data-ride="carousel">
+  <div id="viewPropertyCarousel" class="carousel slide mb-3" data-ride="carousel">
     <ol class="carousel-indicators">
       ${indicators}
     </ol>
@@ -202,7 +217,7 @@ async function buildPropertyViewPage(id) {
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
-  </div>  <br>
+  </div>
   `;
 
   html += `
@@ -264,10 +279,11 @@ async function buildPropertyViewPage(id) {
       </div>
     </div>
     <hr>
-    <div class="container  text-muted">
-      <div class="row">
+    <div class="container text-muted">
+      <div class="row text-center">
         <h6 class="col">ID#${doc.id}</h6>
-        <h6 class="col text-right">Date Listed: ${property.created.toDate().toString().substring(0, 15)}</h6>
+        <h6 class="col">Submitted by ${property.displayName}</h6>
+        <h6 class="col">Date Listed: ${property.created.toDate().toString().substring(0, 15)}</h6>
       </div>
     </div>
     <hr>
@@ -275,5 +291,3 @@ async function buildPropertyViewPage(id) {
   `;
   main.innerHTML = html;
 }
-
-populateSearchSelector(regionSelector);
