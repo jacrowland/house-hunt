@@ -27,6 +27,8 @@ submitResidentialPropertyForm.addEventListener('submit', function(e) {
 db.collection('properties').add({
       uid: firebase.auth().currentUser.uid,
       displayName: firebase.auth().currentUser.displayName,
+      created: firebase.firestore.Timestamp.now(),
+
       tagline: submitResidentialPropertyForm['tagline'].value,
       description: submitResidentialPropertyForm['description'].value,
       address: submitResidentialPropertyForm['address'].value,

@@ -1,9 +1,3 @@
-//  Listen for Auth status changes
-auth.onAuthStateChanged(user => {
-    setupAuthUI(user);
-  });
-
-// login.html
 const signUpForm = document.querySelector("#signUpForm");
 const loginForm = document.querySelector("#loginForm");
 const resetPasswordForm = document.querySelector("#resetPasswordForm");
@@ -12,7 +6,12 @@ const backToLoginBtn = document.querySelector("#backToLoginBtn");
 const goToSignUpFormBtn = document.querySelector("#goToSignUpFormBtn");
 const GoogleSignInBtn = document.querySelector("#GoogleSignInBtn");
 
-//  logout the user
+// Listen for Auth status changes
+auth.onAuthStateChanged(user => {
+    setupAuthUI(user);
+  });
+
+// logout the user
 function logout() {
   auth.signOut();
   window.location = "index.html";
@@ -47,7 +46,7 @@ loginForm.addEventListener('submit', (e) => {
   })
 });
 
-//  Send reset password email
+// Send reset password email
 resetPasswordForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const emailAddress = resetPasswordForm['resetEmail'].value;
@@ -82,7 +81,7 @@ signUpForm.addEventListener('submit', function(e) {
   });
 });
 
-// Sign in with Google Account
+// Sign in the user with a Google Account
 GoogleSignInBtn.addEventListener("click", (e) => {
   e.preventDefault();
   firebase.auth().signInWithRedirect(google);

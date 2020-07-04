@@ -53,7 +53,12 @@ const setupProperties = (data) => {
     // retrieve content from doc
     const property = doc.data();
     var imageURLS = await getImageURLS(property.images);
-    var slides = getCarouselSlides(imageURLS);
+    var slides = getCarouselSlides(imageURLS, 3);
+
+    var address = property.address;
+    if (property.address2 != "" && property.address2 != null) {
+      address = property.address2 + ", " + address;
+    }
 
     card = `
     <div class="mb-3 card col-xl-8 col-lg-12 col-md-12 propertyResultCard">
@@ -74,7 +79,7 @@ const setupProperties = (data) => {
           </div>
         </div>
         <div class="card-body col-md-6 col-sm-12">
-          <h5 class="card-title">${property.address}, ${property.suburb} </h5>
+          <h5 class="card-title">${address}, ${property.suburb} </h5>
           <h6>${property.district}<small> ${property.region}</small></h6>
           <hr>
           <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle mb-2"><strong>${property.tagline}</strong></h6>
@@ -111,9 +116,12 @@ const setupProperties = (data) => {
 }
 
 // Takes array of web urls for images and returns html for bootstrap carousel-item
-function getCarouselSlides(imageURLS) {
+function getCarouselSlides(imageURLS, maxSlides) {
   var html = "";
-  for (i = 0; i < imageURLS.length; i++) {
+  var numSlides = maxSlides;
+  if (maxSlides > imageURLS.length) {numslides = imageURLS.length}
+
+  for (i = 0; i < numSlides; i++) {
     if (i == 0) {
       html += `<div class="carousel-item active">`
     }
