@@ -112,7 +112,6 @@ nav {
   text-decoration: none;
 }
 
-
 #carousel {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
@@ -131,13 +130,15 @@ nav {
 }
 
 #viewPropertyCarousel .carousel-item img {
-  height: 500px;
   object-fit: cover;
   width: 100%;
+  height: 50vh;
 }
 
 #propertyPath, #propertyPath a {
-  background-color: rgba(56, 173, 169, 1);
-  height: 30px;
   color: white;
+}
+
+#subNav {
+  background-color: rgba(56, 173, 169, 1);
 }

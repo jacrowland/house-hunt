@@ -173,27 +173,35 @@ async function buildPropertyViewPage(id) {
   var propertyAddressJumbotron = document.querySelector("#propertyAddressJumbotron");
   var indicators = "";
 
-
   document.title = address;
 
-  propertyPath.innerHTML = `
-  <div class="container">
-    <small id="path" class="align-middle text-light"> <a href="residential.html">listings</a> > ${property.region} > ${property.district} > ${property.suburb} </small>
-  </div>
-  `;
-
-// TODO: causing an issue with displaying the images
-
-  /*
-  for (i = 0; i < imageURLS.length; i++) {
+  for (var i = 0; i < imageURLS.length; i++) {
     if (i == 0) {
       indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="active">`;
     }
     else {
-      indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="></li>`;
+      indicators += `<li data-target='#viewPropertyCarousel' data-slide-to='${i}' class="">`;
     }
   }
-  */
+
+  propertyPath.innerHTML = `
+  <div id="subNav" style="width: 100%;background-color: rgba(56, 173, 169, 1);">
+    <div class="container text-light">
+      <div class="row">
+        <div class="col-md-9 col-lg-9 d-none d-md-block">
+          <small id="path">
+            <a href="residential.html">listings</a>  ${property.region} > ${property.district} > ${property.suburb}
+          </small>
+        </div>
+        <div class="col-md-3 col-lg-3">
+          <small id="path" class="mt-1 float-right">
+            Listed on ${property.created.toDate().toString().substring(0, 15)}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
 
   propertyAddressJumbotron.innerHTML =`
   <div class="container">
@@ -206,7 +214,7 @@ async function buildPropertyViewPage(id) {
     <ol class="carousel-indicators">
       ${indicators}
     </ol>
-    <div class="carousel-inner">
+    <div class="carousel-inner img-fluid">
       ${slides}
     </div>
     <a class="carousel-control-prev" href="#viewPropertyCarousel" role="button" data-slide="prev">
@@ -221,7 +229,7 @@ async function buildPropertyViewPage(id) {
   `;
 
   html += `
-  <div id="viewPropertyContent" class="container" style="margin-bottom: 150px;">
+  <div id="viewPropertyContent" class="container col-md-10 float-left" style="margin-bottom: 150px;">
     <div class="container">
       <h2 style="color: rgba(56, 173, 169, 1);"> ${property.tagline} </h2>
       <h4 class="text-muted"> ${property.type} </h4>
@@ -287,7 +295,19 @@ async function buildPropertyViewPage(id) {
       </div>
     </div>
     <hr>
-  </div>
-  `;
+    `;
+
+    // display a video if the property has one
+    if (property.video != "" && property.video != null) {
+      html += `
+        <iframe width="560" height="315" src="${property.videoURL}"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;
+        picture-in-picture" allowfullscreen></iframe>
+      <hr>
+        map
+      <hr>
+    `;
+    }
+  html += `</div>`;
   main.innerHTML = html;
 }
