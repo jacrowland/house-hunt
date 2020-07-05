@@ -289,9 +289,8 @@ async function buildPropertyViewPage(id) {
     <hr>
     <div class="container text-muted">
       <div class="row text-center">
-        <h6 class="col">ID#${doc.id}</h6>
-        <h6 class="col">Submitted by ${property.displayName}</h6>
-        <h6 class="col">Date Listed: ${property.created.toDate().toString().substring(0, 15)}</h6>
+        <h6 class="col-sm-6"><span class="float-left">${doc.id}</span></h6>
+        <h6 class="col-sm-6"><span class="float-right">Submitted by <a href="profile.html?${property.uid}">${property.displayName}</a></span></h6>
       </div>
     </div>
     <hr>
