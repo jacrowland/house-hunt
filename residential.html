@@ -31,32 +31,32 @@
   <main role="main" class="container">
 
     <div class="container">
-      <form>
+      <form id="searchResidentialPropertiesForm">
       <h2> Search <small> Refine the hunt </small></h2>
       <div class="form-group row">
         <div class="col-md-2">
           <label class="col-form-label" for="type"><small>Buy / Rent</small></label>
-          <select class="form-control" id="world">
-              <option value="Foundry Cove">Buy</option>
-              <option value="Courtyard Lane">Rent</option>
+          <select class="form-control" id="buyOrRent">
+              <option value="Buy">Buy</option>
+              <option value="Rent">Rent</option>
           </select>
         </div>
           <div class="col-md-4">
             <label class="col-form-label" for="region"><small>Region</small></label>
             <select class="form-control" id="region">
-                <option value="Any">Any region</option>
+                <option value="">Any region</option>
             </select>
           </div>
           <div class="col-md-3">
             <label class="col-form-label" for="district"><small>City/Town/District/</small></label>
             <select class="form-control" id="district" disabled>
-                <option value="Any">Any district</option>
+                <option value="">Any district</option>
             </select>
           </div>
           <div class="col-md-3">
             <label class="col-form-label" for="suburb"><small>Suburb/Area</small></label>
             <select class="form-control" id="suburb" disabled>
-                <option value="Any">Any suburb</option>
+                <option value="">Any suburb</option>
             </select>
           </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="col-md-2 col-sm-6">
           <label class="col-form-label" for="minBath"><small>Min. Bath</small></label>
           <select class="form-control" id="minBath">
-            <option value="0">Any</option>
+            <option value="">Any</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -76,7 +76,7 @@
         <div class="col-md-2 col-sm-6">
           <label class="col-form-label" for="maxBath"><small>Max. Bath</small></label>
           <select class="form-control" id="maxBath">
-            <option value="1000000000">Any</option>
+            <option value="">Any</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -88,7 +88,7 @@
         <div class="col-md-2 col-sm-6">
           <label class="col-form-label" for="minBed"><small>Min. Bed</small></label>
           <select class="form-control" id="minBed">
-              <option selected="selected" value="0">Any</option>
+              <option value="">Any</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -100,7 +100,7 @@
         <div class="col-md-2 col-sm-6">
           <label class="col-form-label" for="maxBed"><small>Max. Bed</small></label>
           <select class="form-control" id="maxBed">
-              <option selected="selected" value="1000000000">Any</option>
+              <option value="">Any</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>

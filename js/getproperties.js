@@ -1,4 +1,3 @@
-
 const minBedSelector = document.querySelector("#minBed");
 const maxBedSelector = document.querySelector("#maxBed");
 const minBathSelector = document.querySelector("#minBath");
@@ -75,17 +74,17 @@ const setupProperties = (data) => {
           </div>
         </div>
         <div class="card-body col-md-6 col-sm-12">
-          <h5 class="card-title"><a class="text-dark" href="view.html?${doc.id}">${address}, ${property.suburb} </a></h5>
-          <h6>${property.district}<small> ${property.region}</small></h6>
+          <h5 class="card-title"><a class="text-dark" href="view.html?${doc.id}">${address}, ${property.location.suburb} </a></h5>
+          <h6>${property.location.district}<small> ${property.location.region}</small></h6>
           <hr>
           <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle mb-2"><strong>${property.tagline}</strong></h6>
           <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle text-muted"><strong>${getMethodOfSaleString(property)}</strong></h6>
           <div class="row">
             <div class="container">
               <img style="height: 20px;"src="icons/toilet.svg" alt="bedroom icon">
-              ${property.bedrooms}
+              ${property.details.bedrooms}
               <img style="height: 20px;"src="icons/bed.svg" alt="bedroom icon">
-              ${property.bathrooms}
+              ${property.details.bathrooms}
             </div>
           </div>
           <hr>
@@ -97,7 +96,7 @@ const setupProperties = (data) => {
             </div>
             <div class="col-6">
               <a href="#" class="float-right btn-lg btn-secondary card-link" >
-                <small>${property.displayName}</small>
+                <small>${property.user.displayName}</small>
               </a>
             </div>
           </div>
@@ -114,8 +113,13 @@ const setupProperties = (data) => {
 // Takes array of web urls for images and returns html for bootstrap carousel-item
 function getCarouselSlides(imageURLS, maxSlides) {
   var html = "";
-  var numSlides = maxSlides;
-  if (maxSlides > imageURLS.length) {numslides = imageURLS.length}
+  var numSlides = 1;
+  if (maxSlides > imageURLS.length) {
+    numSlides = imageURLS.length;
+  }
+  else {
+    numSlides = maxSlides;
+  }
 
   for (i = 0; i < numSlides; i++) {
     if (i == 0) {
@@ -154,9 +158,9 @@ function getPropertyIDFromURL() {
 
 // Returns a string based on if the property has a second address line (i.e apartment floor etc.)
 function getPropertyAddressString(property) {
-  var address = property.address;
-  if (property.address2 != "" && property.address2 != null) {
-    address = property.address2 + ", " + address;
+  var address = property.location.address;
+  if (property.location.address2 != "" && property.location.address2 != null) {
+    address = property.location.address2 + ", " + address;
   }
   return address;
 }
@@ -190,7 +194,7 @@ async function buildPropertyViewPage(id) {
       <div class="row">
         <div class="col-md-9 col-lg-9 d-none d-md-block">
           <small id="path">
-            <a href="residential.html">listings</a>  ${property.region} > ${property.district} > ${property.suburb}
+            <a href="residential.html">listings</a> > ${property.location.region} > ${property.location.district} > ${property.location.suburb}
           </small>
         </div>
         <div class="col-md-3 col-lg-3">
@@ -205,8 +209,8 @@ async function buildPropertyViewPage(id) {
 
   propertyAddressJumbotron.innerHTML =`
   <div class="container">
-    <h1 class="display-4 text-light text-left"> ${address}, ${property.suburb}</h1>
-    <h2 class="display-5 text-light text-left"><small> ${property.district}, ${property.region}</small></h2>
+    <h1 class="display-4 text-light text-left"> ${address}, ${property.location.suburb}</h1>
+    <h2 class="display-5 text-light text-left"><small> ${property.location.district}, ${property.location.region}</small></h2>
   </div>`;
 
   var html = `
@@ -232,7 +236,7 @@ async function buildPropertyViewPage(id) {
   <div id="viewPropertyContent" class="container col-md-10 float-left" style="margin-bottom: 150px;">
     <div class="container">
       <h2 style="color: rgba(56, 173, 169, 1);"> ${property.tagline} </h2>
-      <h4 class="text-muted"> ${property.type} </h4>
+      <h4 class="text-muted"> ${property.details.residential} </h4>
       <h3 class=""> ${getMethodOfSaleString(property)}</h3>
     </div>
     <hr>
@@ -240,20 +244,20 @@ async function buildPropertyViewPage(id) {
       <div class="row">
       <div class=" col">
         <img style="height: 20px;"src="icons/bed.svg" alt="bedroom icon">
-        ${property.bedrooms} bedrooms
+        ${property.details.bedrooms} bedrooms
 
       </div>
       <div class=" col">
         <img style="height: 20px;"src="icons/toilet.svg" alt="bedroom icon">
-        ${property.bathrooms} bathrooms
+        ${property.details.bathrooms} bathrooms
       </div>
       <div class=" col">
       <img style="height: 20px;"src="icons/fence.svg" alt="land area icon">
-        ${property.landArea}m<sup>2</sup> land area
+        ${property.details.landArea}m<sup>2</sup> land area
       </div>
       <div class=" col">
       <img style="height: 20px;"src="icons/floorarea.svg" alt="floor area icon">
-        ${property.floorArea}m<sup>2</sup> floor area
+        ${property.details.floorArea}m<sup>2</sup> floor area
       </div>
     </div>
     </div>
@@ -270,19 +274,19 @@ async function buildPropertyViewPage(id) {
       <div class="row">
         <div class="container col">
         <img style="height: 20px;"src="icons/garage.svg" alt="garage icon">
-          ${property.garages} garages
+          ${property.details.garages} garages
         </div>
         <div class="container col">
         <img style="height: 20px;"src="icons/otherparks.svg" alt="car park icon">
-           ${property.parks} other parks
+           ${property.details.parks} other parks
         </div>
         <div class="container col">
         <img style="height: 20px;"src="icons/toilet.svg" alt="wcs icon">
-          ${property.wcs} WCS
+          ${property.details.wcs} WCS
         </div>
         <div class="container col">
         <img style="height: 20px;"src="icons/stair.svg" alt="stairs icon">
-          ${property.storeys} storeys
+          ${property.details.storeys} storeys
         </div>
       </div>
     </div>
@@ -290,7 +294,7 @@ async function buildPropertyViewPage(id) {
     <div class="container text-muted">
       <div class="row text-center">
         <h6 class="col-sm-6"><span class="float-left">${doc.id}</span></h6>
-        <h6 class="col-sm-6"><span class="float-right">Submitted by <a href="profile.html?${property.uid}">${property.displayName}</a></span></h6>
+        <h6 class="col-sm-6"><span class="float-right">Submitted by <a href="profile.html?${property.user.uid}">${property.user.displayName}</a></span></h6>
       </div>
     </div>
     <hr>
@@ -310,3 +314,36 @@ async function buildPropertyViewPage(id) {
   html += `</div>`;
   main.innerHTML = html;
 }
+
+const searchResidentialPropertiesForm = document.querySelector("#searchResidentialPropertiesForm");
+console.log(searchResidentialPropertiesForm);
+
+// Search collections using a custom built query
+searchResidentialPropertiesForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const region = searchResidentialPropertiesForm['region'].value;
+  const district = searchResidentialPropertiesForm['district'].value;
+  const suburb = searchResidentialPropertiesForm['suburb'].value;
+  const buyOrRent = searchResidentialPropertiesForm['buyOrRent'].value;
+  const minBath = searchResidentialPropertiesForm['minBath'].value;
+  const maxBath = searchResidentialPropertiesForm['maxBath'].value;
+  const minBed = searchResidentialPropertiesForm['minBed'].value;
+  const maxBed = searchResidentialPropertiesForm['maxBed'].value;
+  const minPrice = searchResidentialPropertiesForm['minPrice'].value;
+  const maxPrice = searchResidentialPropertiesForm['maxPrice'].value;
+  //console.log([buyOrRent, region, district, suburb, minBath, maxBath, minBed, maxBed, minPrice, maxPrice]);
+
+  // Building query based on user input
+  var propertiesRef = db.collection("properties");
+  var query = propertiesRef.where("region", "==", region);
+
+
+  // Retrieve properties matching the query
+  query.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+    });
+  }).catch((err) => {
+    console.log(err.message);
+  });
+})

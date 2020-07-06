@@ -17,49 +17,61 @@ submitResidentialPropertyForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   // Method of sale (either true or false)
-  const advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;                                      
+  const advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;
   const negotiation = document.querySelector("#negotiationRadioBtn").checked;
   const tender = document.querySelector("#tenderRadioBtn").checked;
   const auction = document.querySelector("#auctionRadioBtn").checked;
   const poaRadioBtn = document.querySelector("#poaRadioBtn").checked;
 
 db.collection('properties').add({
-      uid: firebase.auth().currentUser.uid,
-      displayName: firebase.auth().currentUser.displayName,
       created: firebase.firestore.Timestamp.now(),
-      type: 'Residential',
-      buy: true,
-      rent: false,
-
+      location: {
+        address: submitResidentialPropertyForm['address'].value,
+        address2: submitResidentialPropertyForm['address2'].value,
+        region: submitResidentialPropertyForm['region'].value,
+        district: submitResidentialPropertyForm['district'].value,
+        suburb: submitResidentialPropertyForm['suburb'].value
+      },
+      images: [],
+      videoURL: null,
+      methodOfSale: {
+        buy: {
+          buy: true,
+          auction: auction,
+          poa: poaRadioBtn,
+          tender: tender,
+          negotiation: negotiation,
+          advertisedPrice: advertisedPrice,
+          price: submitResidentialPropertyForm['price'].value,
+        },
+        rent: {
+          rent: false,
+          rentCost: null,
+          weekly: false,
+          fortnightly: false,
+          monthly: false,
+          yearly: false
+        }
+      },
       tagline: submitResidentialPropertyForm['tagline'].value,
       description: submitResidentialPropertyForm['description'].value,
-      address: submitResidentialPropertyForm['address'].value,
-      address2: submitResidentialPropertyForm['address2'].value,
-      district: submitResidentialPropertyForm['district'].value,
-      region: submitResidentialPropertyForm['region'].value,
-      suburb: submitResidentialPropertyForm['suburb'].value,
-
-      titleType: submitResidentialPropertyForm['titleType'].value,
-
-      auction: auction,
-      poa: poaRadioBtn,
-      tender: tender,
-      negotiation: negotiation,
-      advertisedPrice: advertisedPrice,
-      price: submitResidentialPropertyForm['price'].value,
-
-      bedrooms: submitResidentialPropertyForm['bed'].value,
-      bathrooms: submitResidentialPropertyForm['bath'].value,
-      garages: submitResidentialPropertyForm['garage'].value,
-      parks: submitResidentialPropertyForm['parks'].value,
-
-      wcs: submitResidentialPropertyForm['wcs'].value,
-      storeys: submitResidentialPropertyForm['storeys'].value,
-      landArea: submitResidentialPropertyForm['landArea'].value,
-      floorArea: submitResidentialPropertyForm['floorArea'].value,
-      ensuites: submitResidentialPropertyForm['ensuites'].value,
-      images: []
-
+      user: {
+        displayName: firebase.auth().currentUser.displayName,
+        uid: firebase.auth().currentUser.uid
+      },
+      details: {
+        residential: true,
+        commercial: false,
+        bedrooms: submitResidentialPropertyForm['bed'].value,
+        bathrooms: submitResidentialPropertyForm['bath'].value,
+        ensuites: submitResidentialPropertyForm['ensuites'].value,
+        wcs: submitResidentialPropertyForm['wcs'].value,
+        garages: submitResidentialPropertyForm['garage'].value,
+        parks: submitResidentialPropertyForm['parks'].value,
+        landArea: submitResidentialPropertyForm['landArea'].value,
+        floorArea: submitResidentialPropertyForm['floorArea'].value,
+        storeys: submitResidentialPropertyForm['storeys'].value,
+        }
     }).then(function(docRef){
       var imagesArray = [];
       uploadImages(filePicker.files, docRef.id, imagesArray);
