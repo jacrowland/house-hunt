@@ -1,54 +1,19 @@
-const minBedSelector = document.querySelector("#minBed");
-const maxBedSelector = document.querySelector("#maxBed");
-const minBathSelector = document.querySelector("#minBath");
-const maxBathSelector = document.querySelector("#maxBath");
-const minPriceSelector = document.querySelector("#minPrice");
-const maxPriceSelector = document.querySelector("#maxPrice");
-
-minBedSelector.addEventListener('change',(e) => {
-  if (maxBedSelector.value < minBedSelector.value) {
-    maxBedSelector.selectedIndex = 0;
-  }
-});
-maxBedSelector.addEventListener('change',(e) => {
-  if (minBedSelector.value > maxBedSelector.value) {
-    minBedSelector.selectedIndex = 0;
-  }
-});
-minBathSelector.addEventListener('change',(e) => {
-  if (maxBathSelector.value < minBathSelector.value) {
-    maxBathSelector.selectedIndex = 0;
-  }
-});
-maxBathSelector.addEventListener('change',(e) => {
-  if (minBathSelector.value > maxBathSelector.value) {
-    minBathSelector.selectedIndex = 0;
-  }
-});
-minPriceSelector.addEventListener('change',(e) => {
-  if (minPriceSelector.value > maxPriceSelector.value) {
-    maxPriceSelector.selectedIndex = 0;
-  }
-});
-maxPriceSelector.addEventListener('change',(e) => {
-  if (maxPriceSelector.value < minPriceSelector.value) {
-    minPriceSelector.selectedIndex = 0;
-  }
-});
 
 // Retrieve property docs from properties collection
 db.collection('properties').get().then(snapshot => { //replace .get() with .onSnapshot() for realtime version
   //Snapshot contains all the doc in a collection at a point in time
-  setupProperties(snapshot);
+  displaySearchResults(snapshot);
 });
 
+
+
 const propertiesList = document.querySelector("#searchResults");
-const setupProperties = (snapshot) => {
-  propertiesList.innerHTML = `<div class='container'><h3> Results <small> Our hunters found ${snapshot.size} results </small></h3><br></div>`;
+const displaySearchResults = (snapshot) => {
+  propertiesList.innerHTML = `<div class='container'><h2> Results <small> Our hunters found ${snapshot.size} result(s) </small></h2><br></div>`;
   var counter = 0;
   let card = null;
   snapshot.forEach(async doc => {
-    var cardID = "card" + counter++;
+    var cardID = doc.id;
     // retrieve content from doc
     const property = doc.data();
     var imageURLS = await getImageURLS(property.images);
@@ -91,11 +56,11 @@ const setupProperties = (snapshot) => {
           <p class="card-text">${property.description.substring(0, 70)}...</p>
           <hr>
           <div class="row">
-            <div class="col-6">
-
+            <div class="col">
+              <a href="view.html?${doc.id}" class="w-100 btn btn-primary btn-lg"><small>View more</small></a>
             </div>
-            <div class="col-6">
-              <a href="#" class="float-right btn-lg btn-secondary card-link" >
+            <div class="col">
+              <a href="profile.html?${property.user.uid}" class="float-right btn-lg btn-secondary card-link" >
                 <small>${property.user.displayName}</small>
               </a>
             </div>
@@ -326,37 +291,34 @@ searchResidentialPropertiesForm.addEventListener('submit', (e) => {
   const buyOrRent = searchResidentialPropertiesForm['buyOrRent'].value;
   var buy = false;
   var rent = false;
-  if (buyOrRent == "buy") buy=true;
-  if (buyOrRent == "rent") rent=true;
-  const minBath = searchResidentialPropertiesForm['minBath'].value;
-  const maxBath = searchResidentialPropertiesForm['maxBath'].value;
-  const minBed = searchResidentialPropertiesForm['minBed'].value;
-  const maxBed = searchResidentialPropertiesForm['maxBed'].value;
-  const minPrice = searchResidentialPropertiesForm['minPrice'].value;
-  const maxPrice = searchResidentialPropertiesForm['maxPrice'].value;
+  if (buyOrRent == "Buy") buy=true;
+  if (buyOrRent == "Rent") rent=true;
   //console.log([buyOrRent, region, district, suburb, minBath, maxBath, minBed, maxBed, minPrice, maxPrice]);
 
   // Building query based on user input
   var propertiesRef = db.collection("properties");
-  console.log(region);
-  console.log(district);
-  console.log(suburb);
-
-  if (region != "" && district == "" && suburb == "") {
+  console.log(buy);
+  if (region == "" && district == "" && suburb == "") {
+    query = propertiesRef.where("methodOfSale.buy.buy", "==", buy).where("methodOfSale.rent.rent", "==", rent);
+  }
+  else if (region != "" && district == "" && suburb == "") {
     console.log("region query");
-    query = propertiesRef.where("location.region", "==", region);
-  } else if (region != "" && district != "" && suburb == "") {
-    query = propertiesRef.where("location.region", "==", region).where("location.district", "==", district);
-  } else if (region != "" && district != "" && suburb != "") {
-    query = propertiesRef.where("location.region", "==", region).where("location.district", "==", district).where("location.suburb", "==", suburb);
-  } else {
+    query = propertiesRef.where("methodOfSale.buy.buy", "==", buy).where("methodOfSale.rent.rent", "==", rent).where("location.region", "==", region);
+  }
+  else if (region != "" && district != "" && suburb == "") {
+    query = propertiesRef.where("methodOfSale.buy.buy", "==", buy).where("methodOfSale.rent.rent", "==", rent).where("location.region", "==", region).where("location.district", "==", district);
+  }
+  else if (region != "" && district != "" && suburb != "") {
+    query = propertiesRef.where("methodOfSale.buy.buy", "==", buy).where("methodOfSale.rent.rent", "==", rent).where("location.region", "==", region).where("location.district", "==", district).where("location.suburb", "==", suburb);
+  }
+  else {
     query = propertiesRef;
   }
 
   // Retrieve properties matching the query
   query.get().then((querySnapshot) => {
     console.log(querySnapshot);
-    setupProperties(querySnapshot);
+    displaySearchResults(querySnapshot);
     querySnapshot.forEach((doc) => {
       console.log(doc.data());
     });
@@ -364,3 +326,43 @@ searchResidentialPropertiesForm.addEventListener('submit', (e) => {
     console.log(err.message);
   });
 })
+
+/*
+const minBedSelector = document.querySelector("#minBed");
+const maxBedSelector = document.querySelector("#maxBed");
+const minBathSelector = document.querySelector("#minBath");
+const maxBathSelector = document.querySelector("#maxBath");
+const minPriceSelector = document.querySelector("#minPrice");
+const maxPriceSelector = document.querySelector("#maxPrice");
+
+minBedSelector.addEventListener('change',(e) => {
+  if (maxBedSelector.value < minBedSelector.value) {
+    maxBedSelector.selectedIndex = 0;
+  }
+});
+maxBedSelector.addEventListener('change',(e) => {
+  if (minBedSelector.value > maxBedSelector.value) {
+    minBedSelector.selectedIndex = 0;
+  }
+});
+minBathSelector.addEventListener('change',(e) => {
+  if (maxBathSelector.value < minBathSelector.value) {
+    maxBathSelector.selectedIndex = 0;
+  }
+});
+maxBathSelector.addEventListener('change',(e) => {
+  if (minBathSelector.value > maxBathSelector.value) {
+    minBathSelector.selectedIndex = 0;
+  }
+});
+minPriceSelector.addEventListener('change',(e) => {
+  if (minPriceSelector.value > maxPriceSelector.value) {
+    maxPriceSelector.selectedIndex = 0;
+  }
+});
+maxPriceSelector.addEventListener('change',(e) => {
+  if (maxPriceSelector.value < minPriceSelector.value) {
+    minPriceSelector.selectedIndex = 0;
+  }
+});
+*/
