@@ -41,8 +41,8 @@ loginForm.addEventListener('submit', (e) => {
     console.log("The user has logged in successfully!");
     loginForm.reset();
     window.location = "index.html";
-  }).catch(function(error) {
-    console.log("An error occurred whilst logging in.");
+  }).catch(function(err) {
+    console.log(err.message);
   })
 });
 
