@@ -270,7 +270,12 @@ if (regionSelector != null && districtSelector != null) {
   });
   districtSelector.addEventListener('change', async (e) => {
     await populateSearchSelector(suburbSelecter, regionSelector.value, districtSelector.value);
-    suburbSelecter.disabled = false;
+    if (districtSelector.value == "") {
+      suburbSelecter.disabled = true;
+    }
+    else {
+      suburbSelecter.disabled = false;
+    }
   });
 }
 
