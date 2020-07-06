@@ -130,20 +130,26 @@ async function getImageURLS(imageArray) {
 function getMethodOfSaleString(property) {
   // auction, negotiation, tender, advertisedPrice, poa
   var method = "";
-  if (property.auction) {
-    method = "Auction";
+  if (property.methodOfSale.buy.buy == true) {
+    if (property.methodOfSale.buy.auction) {
+      method = "Auction";
+    }
+    else if (property.methodOfSale.buy.negotiation) {
+      method = "Negotiation";
+    }
+    else if (property.methodOfSale.buy.tender) {
+      method = "Tender";
+    }
+    else if (property.methodOfSale.buy.poa) {
+      method = "POA";
+    }
+    else if (property.methodOfSale.buy.advertisedPrice) {
+      method = "$" + property.price;
+    }
   }
-  else if (property.negotiation) {
-    method = "Negotiation";
-  }
-  else if (property.tender) {
-    method = "Tender";
-  }
-  else if (property.poa) {
-    method = "POA";
-  }
-  else if (property.advertisedPrice) {
-    method = "$" + property.price;
+  else if (property.methodOfSale.rent.rent == true) {
+    // TODO: add period weekly, fornightly etc.
+    method = "$" + property.methodOfSale.rent.rentAmount + " per ...";
   }
   return method;
 }

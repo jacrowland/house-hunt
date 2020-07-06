@@ -71,60 +71,101 @@
             <hr>
 
           <div class="form-group">
-            <h2> Pricing </h2>
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                <label for="titleType"><small>Title</small></label>
-                <select id="titleType" class="form-control" required>
-                  <option value="freehold" selected>Freehold</option>
-                  <option value="leasehold">Leasehold</option>
-                  <option value="unit title">Unit Title</option>
-                  <option value="cross lease">Cross lease</option>
-                </select>
-                <br>
-                <div class="row">
-                  <div class="col-md-6" id="methodOfSale">
-                      <label><small>Method of Sale</small></label>
-                      <div class="col-lg-6 form-check" >
-                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="auctionRadioBtn" value="auction" checked>
-                        <label class="form-check-label" for="auctionRadioBtn">
-                          Auction
-                        </label>
+            <h2> Classification </h2>
+            <label class="col-form-label" for="buyOrRent"><small>For Purchase / For Rent</small></label>
+            <select class="form-control" id="buyOrRent" required>
+                <option value="buy">For Purchase</option>
+                <option value="rent">For Rent</option>
+            </select>
+            <hr style="width: 98%">
+            <div id="rentFormGroup" style="display:none;">
+              <div class="" id="rentFrequency">
+                  <label><small>Frequency of Rent Payment</small></label>
+                  <div class="col-lg-6 form-check" >
+                    <input class="form-check-input" type="radio" name="rentFrequencyRadios" id="weeklyRadioBtn" value="weekly" checked>
+                    <label class="form-check-label" for="weeklyRadioBtn">
+                      Weekly
+                    </label>
+                  </div>
+                  <div class="col-lg-6 form-check" >
+                    <input class="form-check-input" type="radio" name="rentFrequencyRadios" id="fornightlyRadioBtn" value="fornightly" checked>
+                    <label class="form-check-label" for="fornightlyRadioBtn">
+                      Fornightly
+                    </label>
+                  </div>
+                  <div class="col-lg-6 form-check" >
+                    <input class="form-check-input" type="radio" name="rentFrequencyRadios" id="monthlyRadioBtn" value="monthly" checked>
+                    <label class="form-check-label" for="monthlyRadioBtn">
+                      Monthly
+                    </label>
+                  </div>
+                  <div class="col-lg-6 form-check" >
+                    <input class="form-check-input" type="radio" name="rentFrequencyRadios" id="annuallyRadioBtn" value="annually" checked>
+                    <label class="form-check-label" for="annuallyRadioBtn">
+                      Annually
+                    </label>
+                  </div>
+                </div>
+
+              <label for="rentAmount"> <small>Amount</small> </label>
+              <input class="form-control" default="0" max="1000000000" min="0" type="number" id="rentAmount">
+            </div> <!-- rent -->
+            <div id="buyFormGroup">
+              <div class="row">
+                <div class="col-lg-12 col-md-12">
+                  <label for="titleType"><small>Title</small></label>
+                  <select id="titleType" class="form-control">
+                    <option value="freehold">Freehold</option>
+                    <option value="leasehold">Leasehold</option>
+                    <option value="unit title">Unit Title</option>
+                    <option value="cross lease">Cross lease</option>
+                  </select>
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-6" id="methodOfSale">
+                        <label><small>Method of Sale</small></label>
+                        <div class="col-lg-6 form-check" >
+                          <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="auctionRadioBtn" value="auction" checked>
+                          <label class="form-check-label" for="auctionRadioBtn">
+                            Auction
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="tenderRadioBtn" value="tender">
+                          <label class="form-check-label" for="tenderRadioBtn">
+                            Tender
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="poaRadioBtn" value="POA">
+                          <label class="form-check-label" for="poaRadioBtn">
+                            Price on Application (POA)
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="negotiationRadioBtn" value="negotiation">
+                          <label class="form-check-label" for="negotiationRadioBtn">
+                            Negotiation
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="advertisedPriceRadioBtn" value="advertisedPrice">
+                          <label class="form-check-label" for="advertisedPriceRadioBtn">
+                            Advertised Price
+                          </label>
+                          <br>
+                        </div>
                       </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="tenderRadioBtn" value="tender">
-                        <label class="form-check-label" for="tenderRadioBtn">
-                          Tender
-                        </label>
+                      <div class="col-md-6" id="priceSelector" style="display:none">
+                        <label for="price"> <small>Price</small> </label>
+                        <input class="form-control" default="0" max="1000000000" min="0" type="number" id="price">
                       </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="poaRadioBtn" value="POA">
-                        <label class="form-check-label" for="poaRadioBtn">
-                          Price on Application (POA)
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="negotiationRadioBtn" value="negotiation">
-                        <label class="form-check-label" for="negotiationRadioBtn">
-                          Negotiation
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="methodOfSaleRadios" id="advertisedPriceRadioBtn" value="advertisedPrice">
-                        <label class="form-check-label" for="advertisedPriceRadioBtn">
-                          Advertised Price
-                        </label>
-                        <br>
-                      </div>
-                    </div>
-                    <div class="col-md-6" id="priceSelector" style="display:none">
-                      <label for="price"> <small>Price</small> </label>
-                      <input class="form-control" default="0" max="1000000000" min="0" type="number" id="price">
-                    </div>
-                  </div> <!-- row -->
-                </div> <!-- col -->
-              </div> <!-- row -->
-            </div> <!-- form group -->
+                    </div> <!-- row -->
+                  </div> <!-- col -->
+                </div> <!-- row -->
+            </div> <!-- buy -->
+          </div> <!-- form group -->
 
             <hr>
 
@@ -215,11 +256,19 @@
     <script src="js/auth.js"></script>
     <script src="js/submitproperty.js"></script>
     <script>
-    // If the method of sale is an 'Advertised Price' then user can enter a price
     const methodOfSaleRadioBtnGroup = document.querySelector("#methodOfSale");
     const advertisedPriceRadioBtn = document.querySelector("#advertisedPriceRadioBtn");
     const priceSelector = document.querySelector("#priceSelector");
+    const buyOrRentSelector = document.querySelector("#buyOrRent");
+    const rentFormGroup = document.querySelector("#rentFormGroup");
+    const buyFormGroup = document.querySelector("#buyFormGroup");
+    var rentFrequency = document.querySelector("#rentFrequency");
+    var rentAmount = document.querySelector("#rentAmount");
+    var methodOfSaleRadio = document.querySelector("#methodOfSale");
+    var priceInput = document.querySelector("#price");
+    var titleType = document.querySelector("#titleType");
 
+    // If the method of sale is an 'Advertised Price' then user can enter a price
     methodOfSaleRadioBtnGroup.addEventListener('click', (e) => {
       if (advertisedPriceRadioBtn.checked) {
         priceSelector.style.display = "";
@@ -227,6 +276,28 @@
       } else {
         priceSelector.style.display = "none";
         priceSelector.required = false;
+      }
+    });
+
+    // Switches between submitting a rental or for purchase residence
+    buyOrRentSelector.addEventListener('change', (e) => {
+      if (buyOrRentSelector.value == "rent") {
+        rentFormGroup.style.display = "";
+        buyFormGroup.style.display = "none";
+        rentFrequency.required = true;
+        rentAmount.required = true;
+        methodOfSaleRadio.required = false;
+        priceInput.required = false;
+        titleType.required = false;
+      }
+      else if (buyOrRentSelector.value == "buy") {
+        rentFormGroup.style.display = "none";
+        buyFormGroup.style.display = "";
+        rentFrequency.required = false;
+        rentAmount.required = false;
+        methodOfSaleRadio.required = true;
+        priceInput.required = true;
+        titleType.required = true;
       }
     });
     </script>

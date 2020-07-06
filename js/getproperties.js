@@ -236,7 +236,7 @@ async function buildPropertyViewPage(id) {
   <div id="viewPropertyContent" class="container col-md-10 float-left" style="margin-bottom: 150px;">
     <div class="container">
       <h2 style="color: rgba(56, 173, 169, 1);"> ${property.tagline} </h2>
-      <h4 class="text-muted"> ${property.details.residential} </h4>
+      <h4 class="text-muted"> Residential</h4>
       <h3 class=""> ${getMethodOfSaleString(property)}</h3>
     </div>
     <hr>

@@ -15,13 +15,44 @@ filePicker.addEventListener('change', (e) => {
 const submitResidentialPropertyForm = document.querySelector("#submitResidentialPropertyForm");
 submitResidentialPropertyForm.addEventListener('submit', function(e) {
   e.preventDefault();
+  var buy = false;
+  var rent = false;
+  // For Purchase Properties
+  var titleType = null;
+  var advertisedPrice = false;
+  var negotiation = false;
+  var tender = false;
+  var auction = false;
+  var poa = false;
+  var price = null;
+  // For Rental Properties
+  var rentFrequency = document.querySelector("rentFrequency");
+  var rentAmount = null;
+  var weekly = false;
+  var monthly = false;
+  var fortnightly = false;
+  var annually = false;
 
-  // Method of sale (either true or false)
-  const advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;
-  const negotiation = document.querySelector("#negotiationRadioBtn").checked;
-  const tender = document.querySelector("#tenderRadioBtn").checked;
-  const auction = document.querySelector("#auctionRadioBtn").checked;
-  const poaRadioBtn = document.querySelector("#poaRadioBtn").checked;
+  buyOrRent = document.querySelector("#buyOrRent");
+  if (buyOrRent.value == "buy") {
+    buy = true;
+    advertisedPrice = document.querySelector("#advertisedPriceRadioBtn").checked;
+    negotiation = document.querySelector("#negotiationRadioBtn").checked;
+    tender = document.querySelector("#tenderRadioBtn").checked;
+    auction = document.querySelector("#auctionRadioBtn").checked;
+    poa = document.querySelector("#poaRadioBtn").checked;
+    if (advertisedPrice) {
+      price = submitResidentialPropertyForm['price'].value
+    }
+  }
+  else if (buyOrRent.value == "rent") {
+    rent = true;
+    rentAmount = document.querySelector("#rentAmount").value;
+    weekly = document.querySelector("#weeklyRadioBtn").checked;
+    monthly = document.querySelector("#monthlyRadioBtn").checked;
+    fortnightly = document.querySelector("#fornightlyRadioBtn").checked;
+    annually = document.querySelector("#annuallyRadioBtn").checked
+  }
 
 db.collection('properties').add({
       created: firebase.firestore.Timestamp.now(),
@@ -36,21 +67,21 @@ db.collection('properties').add({
       videoURL: null,
       methodOfSale: {
         buy: {
-          buy: true,
+          buy: buy,
           auction: auction,
-          poa: poaRadioBtn,
+          poa: poa,
           tender: tender,
           negotiation: negotiation,
           advertisedPrice: advertisedPrice,
-          price: submitResidentialPropertyForm['price'].value,
+          price: price,
         },
         rent: {
-          rent: false,
-          rentCost: null,
-          weekly: false,
-          fortnightly: false,
-          monthly: false,
-          yearly: false
+          rent: rent,
+          rentAmount: rentAmount,
+          weekly: weekly,
+          fortnightly: fortnightly,
+          monthly: monthly,
+          annually: annually
         }
       },
       tagline: submitResidentialPropertyForm['tagline'].value,
@@ -62,6 +93,7 @@ db.collection('properties').add({
       details: {
         residential: true,
         commercial: false,
+        title: submitResidentialPropertyForm['titleType'].value,
         bedrooms: submitResidentialPropertyForm['bed'].value,
         bathrooms: submitResidentialPropertyForm['bath'].value,
         ensuites: submitResidentialPropertyForm['ensuites'].value,
