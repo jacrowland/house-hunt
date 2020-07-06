@@ -5,8 +5,6 @@ db.collection('properties').get().then(snapshot => { //replace .get() with .onSn
   displaySearchResults(snapshot);
 });
 
-
-
 const propertiesList = document.querySelector("#searchResults");
 const displaySearchResults = (snapshot) => {
   propertiesList.innerHTML = `<div class='container'><h2> Results <small> Our hunters found ${snapshot.size} result(s) </small></h2><br></div>`;
