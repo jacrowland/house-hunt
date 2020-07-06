@@ -39,15 +39,15 @@ maxPriceSelector.addEventListener('change',(e) => {
 // Retrieve property docs from properties collection
 db.collection('properties').get().then(snapshot => { //replace .get() with .onSnapshot() for realtime version
   //Snapshot contains all the doc in a collection at a point in time
-  setupProperties(snapshot.docs);
+  setupProperties(snapshot);
 });
 
 const propertiesList = document.querySelector("#searchResults");
-const setupProperties = (data) => {
-  propertiesList.innerHTML = "<div class='container'><h3> Results <small> this is what we found </small></h3><br></div>";
+const setupProperties = (snapshot) => {
+  propertiesList.innerHTML = `<div class='container'><h3> Results <small> Our hunters found ${snapshot.size} results </small></h3><br></div>`;
   var counter = 0;
   let card = null;
-  data.forEach(async doc => {
+  snapshot.forEach(async doc => {
     var cardID = "card" + counter++;
     // retrieve content from doc
     const property = doc.data();
@@ -316,7 +316,6 @@ async function buildPropertyViewPage(id) {
 }
 
 const searchResidentialPropertiesForm = document.querySelector("#searchResidentialPropertiesForm");
-console.log(searchResidentialPropertiesForm);
 
 // Search collections using a custom built query
 searchResidentialPropertiesForm.addEventListener('submit', (e) => {
@@ -325,6 +324,10 @@ searchResidentialPropertiesForm.addEventListener('submit', (e) => {
   const district = searchResidentialPropertiesForm['district'].value;
   const suburb = searchResidentialPropertiesForm['suburb'].value;
   const buyOrRent = searchResidentialPropertiesForm['buyOrRent'].value;
+  var buy = false;
+  var rent = false;
+  if (buyOrRent == "buy") buy=true;
+  if (buyOrRent == "rent") rent=true;
   const minBath = searchResidentialPropertiesForm['minBath'].value;
   const maxBath = searchResidentialPropertiesForm['maxBath'].value;
   const minBed = searchResidentialPropertiesForm['minBed'].value;
@@ -335,11 +338,25 @@ searchResidentialPropertiesForm.addEventListener('submit', (e) => {
 
   // Building query based on user input
   var propertiesRef = db.collection("properties");
-  var query = propertiesRef.where("region", "==", region);
+  console.log(region);
+  console.log(district);
+  console.log(suburb);
 
+  if (region != "" && district == "" && suburb == "") {
+    console.log("region query");
+    query = propertiesRef.where("location.region", "==", region);
+  } else if (region != "" && district != "" && suburb == "") {
+    query = propertiesRef.where("location.region", "==", region).where("location.district", "==", district);
+  } else if (region != "" && district != "" && suburb != "") {
+    query = propertiesRef.where("location.region", "==", region).where("location.district", "==", district).where("location.suburb", "==", suburb);
+  } else {
+    query = propertiesRef;
+  }
 
   // Retrieve properties matching the query
   query.get().then((querySnapshot) => {
+    console.log(querySnapshot);
+    setupProperties(querySnapshot);
     querySnapshot.forEach((doc) => {
       console.log(doc.data());
     });
