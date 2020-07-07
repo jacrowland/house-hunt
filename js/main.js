@@ -154,78 +154,38 @@ function getMethodOfSaleString(property) {
   return method;
 }
 
-function setupAuthUI(user) {
-  const navbarQuickActions = document.getElementById("navbar-quickactions");
-  // If the user is logged in a dropdown menu is displayed
+async function setupUI(user) {
+  await buildNav(user);
+  var loggedInElements = document.getElementsByClassName("logged-in");
+  var loggedOutElements = document.getElementsByClassName("logged-out");
+  // Hides all elements with logged-in class if the user is logged out
+  // and shows the logged-in elements (and vice-versa).
   if (user) {
-    var photoURL = null;
-      //getUserProfileImage();
-      try {
-        var gsReference = storage.refFromURL(user.photoURL);
-        gsReference.getDownloadURL().then(function(url) {
-          photoURL = url;
-        });
-      } catch(err) {
-        photoURL = "images/profile_image.png";
-      }
-    navbarQuickActions.innerHTML = `
-    <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-user dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <small id="usernameDropdownText">${user.displayName}</small>
-        <img src="${photoURL}" style="margin-top:-4px;height: 30px;">
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="dashboard.html">
-        <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
-        </svg>
-        Dashboard</a>
-        <a class="dropdown-item" href="dashboard.html">
-          <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-          </svg>
-          My Properties
-        </a>
-        <a class="dropdown-item" href="dashboard.html">
-          <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-          </svg>
-          Saved Properties
-        </a>
-        <a class="dropdown-item" href="submitproperty.html">
-        <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
-          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
-        </svg>
-          Submit Property
-        </a>
-        <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="logout()" id="logoutBtn">
-          <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M4 1a1 1 0 0 0-1 1v13H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2a1 1 0 0 0-1-1H4zm2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-          </svg>
-          Logout
-        </a>
-      </div>
-    </div>
-    `;
+    for (var i = 0; i < loggedInElements.length; i++) loggedInElements[i].style.display = "";
+    for (var i = 0; i < loggedOutElements.length; i++) loggedOutElements[i].style.display = "none";
   }
-  // If the user is logged out a login button is displayed
-  else {
-    navbarQuickActions.innerHTML = `
-    <a href="login.html" id="loginBtn"  class="btn btn-sm btn-user"> <small>Login</small>
-    <svg style="margin-top: -4px" width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-door-open" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM11.5 2H11V1h.5A1.5 1.5 0 0 1 13 2.5V15h-1V2.5a.5.5 0 0 0-.5-.5z"/>
-      <path fill-rule="evenodd" d="M10.828.122A.5.5 0 0 1 11 .5V15h-1V1.077l-6 .857V15H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117z"/>
-      <path d="M8 9c0 .552.224 1 .5 1s.5-.448.5-1-.224-1-.5-1-.5.448-.5 1z"/>
-    </svg>
-  </a>
-    `;
+  else if (!user) {
+    for (var i = 0; i < loggedInElements.length; i++) loggedInElements[i].style.display = "none";
+    for (var i = 0; i < loggedOutElements.length; i++) loggedOutElements[i].style.display = "";
   }
 }
 
-function buildNav() {
+async function getUserProfileImageURL(user) {
+  var userProfileImageURL = null;
+  try {
+    var gsReference = storage.refFromURL(user.photoURL);
+    await gsReference.getDownloadURL().then(function(url) {
+      userProfileImageURL = url;
+    });
+  } catch(err) {
+    // if err, return a placeholder profile picture url
+    userProfileImageURL = "images/profile_image.png";
+  }
+  return userProfileImageURL;
+}
+
+async function buildNav(user) {
+  profileImageURL = await getUserProfileImageURL(user);
   const navbar = document.getElementById('navbar');
   navbar.innerHTML = `
   <div class="container">
@@ -252,6 +212,53 @@ function buildNav() {
     </ul>
     <div id="navbar-quickactions">
       <!-- populated by options depending on if user is logged in or not -->
+      <div class="btn-group logged-in">
+        <button type="button" class="btn btn-sm btn-user dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <small id="usernameDropdownText">${user.displayName}</small>
+          <img src="${profileImageURL}" style="margin-top:-4px;height: 30px;">
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="dashboard.html">
+          <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
+          </svg>
+          Dashboard</a>
+          <a class="dropdown-item" href="dashboard.html">
+            <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+              <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg>
+            My Properties
+          </a>
+          <a class="dropdown-item" href="dashboard.html">
+            <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+            </svg>
+            Saved Properties
+          </a>
+          <a class="dropdown-item" href="submitproperty.html">
+          <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+          </svg>
+            Submit Property
+          </a>
+          <div class="dropdown-divider"></div>
+            <a class="dropdown-item" onclick="logout()" id="logoutBtn">
+            <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4 1a1 1 0 0 0-1 1v13H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2a1 1 0 0 0-1-1H4zm2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+            </svg>
+            Logout
+          </a>
+        </div>
+      </div>
+      <a href="login.html" id="loginBtn"  class="logged-out btn btn-sm btn-user"> <small>Login</small>
+          <svg style="margin-top: -4px" width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-door-open" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM11.5 2H11V1h.5A1.5 1.5 0 0 1 13 2.5V15h-1V2.5a.5.5 0 0 0-.5-.5z"/>
+            <path fill-rule="evenodd" d="M10.828.122A.5.5 0 0 1 11 .5V15h-1V1.077l-6 .857V15H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117z"/>
+            <path d="M8 9c0 .552.224 1 .5 1s.5-.448.5-1-.224-1-.5-1-.5.448-.5 1z"/>
+          </svg>
+        </a>
     </div>
   </div>
   </div>
@@ -280,7 +287,7 @@ if (regionSelector != null && districtSelector != null) {
 }
 
 function main() {
-  buildNav();
+  setupUI();
   populateSearchSelector(regionSelector);
 }
 

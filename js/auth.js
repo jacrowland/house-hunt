@@ -8,7 +8,7 @@ const GoogleSignInBtn = document.querySelector("#GoogleSignInBtn");
 
 // Listen for Auth status changes
 auth.onAuthStateChanged(user => {
-    setupAuthUI(user);
+    setupUI(user);
   });
 
 // logout the user
