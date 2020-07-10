@@ -185,6 +185,13 @@ async function getUserProfileImageURL(user) {
 }
 
 async function buildNav(user) {
+  
+  if (!user) {
+    user = {
+      displayName: "null",
+    }
+  }
+
   profileImageURL = await getUserProfileImageURL(user);
   const navbar = document.getElementById('navbar');
   navbar.innerHTML = `

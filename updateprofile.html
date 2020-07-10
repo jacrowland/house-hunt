@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>User Profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+  <div id="subNav">
+    <div class="container text-light">
+      Dashboard > Profile > Edit Profile
+    </div>
+  </div>
+
+  <div class="jumbotron p-4">
+    <h1 class="container text-light display-4">
+      Update Profile
+    </h1>
+  </div>
+
+  <!-- Main Content -->
+  <main role="main" class="h-100 container align-content-center">
+    <div class="row align-content-center justify-content-center">
+      <form name="updateProfileForm" class="col-sm-5">
+            <img src="images\profile_image.png" class="mb-3" style="height: 200px">
+            <div class="custom-file">
+              <small> Update profile image </small>
+              <input multiple accept=".jpeg, .jpg, .png" type="file" class="custom-file-input" id="imageFilePicker">
+              <label style="overflow:hidden;" class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <label for="uid"> <small>UserID</small> </label>
+            <input class="form-control" maxlength="50" type="text" placeholder="#abc123" id="uid" disabled>
+            <label for="displayName"><small>Display Name</small></label>
+            <input class="form-control" placeholder="user display name" id="displayName"></input>
+            <label for="email"><small>Email Address</small></label>
+            <input class="form-control" placeholder="useremail@provider.com" id="email"></input>
+            <br>
+            <button type="submit" class="btn btn-block btn-primary"> Update </button>
+      </form>
+    </div> <!-- /.row -->
+  </main><!-- /.container -->
+
+  <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+    <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland (2020) </p>
+  </footer>
+    </body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+
+    </script>
+</html>
