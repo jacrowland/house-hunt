@@ -22,7 +22,7 @@
 
   <div id="subNav">
     <div class="container text-light">
-      Dashboard > Profile > Edit Profile
+      <a class="text-light" href="dashboard.html">Dashboard</a> > <a class="text-light" href="profile.html">Profile</a> > <a class="text-light" href="updateprofile.html">Edit Profile</a>
     </div>
   </div>
 
@@ -33,25 +33,8 @@
   </div>
 
   <!-- Main Content -->
-  <main role="main" class="h-100 container align-content-center">
-    <div class="row align-content-center justify-content-center">
-      <form name="updateProfileForm" class="col-sm-5">
-            <img src="images\profile_image.png" class="mb-3" style="height: 200px">
-            <div class="custom-file">
-              <small> Update profile image </small>
-              <input multiple accept=".jpeg, .jpg, .png" type="file" class="custom-file-input" id="imageFilePicker">
-              <label style="overflow:hidden;" class="custom-file-label" for="customFile">Choose file</label>
-            </div>
-            <label for="uid"> <small>UserID</small> </label>
-            <input class="form-control" maxlength="50" type="text" placeholder="#abc123" id="uid" disabled>
-            <label for="displayName"><small>Display Name</small></label>
-            <input class="form-control" placeholder="user display name" id="displayName"></input>
-            <label for="email"><small>Email Address</small></label>
-            <input class="form-control" placeholder="useremail@provider.com" id="email"></input>
-            <br>
-            <button type="submit" class="btn btn-block btn-primary"> Update </button>
-      </form>
-    </div> <!-- /.row -->
+  <main role="main" id="main" class="h-100 container align-content-center">
+      <!-- form loaded in profile.js -->
   </main><!-- /.container -->
 
   <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
@@ -70,6 +53,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
     <script>
 
     </script>

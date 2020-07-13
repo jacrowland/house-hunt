@@ -185,7 +185,7 @@ async function getUserProfileImageURL(user) {
 }
 
 async function buildNav(user) {
-  
+
   if (!user) {
     user = {
       displayName: "null",
@@ -272,17 +272,21 @@ async function buildNav(user) {
   `;
 }
 
-const filePicker = document.querySelector('#imageFilePicker');
-const filePickerLabel = document.querySelector(".custom-file-label");
+var filePicker = document.querySelector('#imageFilePicker');
+var filePickerLabel = document.querySelector(".custom-file-label");
 // Updates the text on filePicker to the name(s) of the file(s) chosen
 filePicker.addEventListener('change', (e) => {
+  filePickerChangeEvent(e);
+});
+
+function filePickerChangeEvent(e) {
   // Displays chosen files to the user
   filePickerLabelString = "";
   for (i = 0; i < filePicker.files.length;i++) {
     filePickerLabelString += filePicker.files[i].name + " ";
   }
   filePickerLabel.innerText = filePickerLabelString;
-});
+}
 
 const regionSelector = document.querySelector("#region");
 const districtSelector = document.querySelector("#district");
