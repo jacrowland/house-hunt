@@ -273,7 +273,7 @@ async function buildNav(user) {
 var filePicker = document.querySelector('#imageFilePicker');
 var filePickerLabel = document.querySelector(".custom-file-label");
 // Updates the text on filePicker to the name(s) of the file(s) chosen
-filePicker.addEventListener('change', (e) => {filePickerChangeEvent(e);});
+if (filePicker != null) {filePicker.addEventListener('change', (e) => {filePickerChangeEvent(e);});}
 
 function filePickerChangeEvent(e) {
   // Displays chosen files to the user
@@ -287,6 +287,7 @@ function filePickerChangeEvent(e) {
 const regionSelector = document.querySelector("#region");
 const districtSelector = document.querySelector("#district");
 const suburbSelecter = document.querySelector("#suburb");
+
 if (regionSelector != null && districtSelector != null) {
   regionSelector.addEventListener('change', async (e) => {
     await populateSearchSelector(districtSelector, regionSelector.value);
