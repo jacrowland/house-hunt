@@ -173,7 +173,7 @@ async function setupUI(user) {
 async function getUserProfileImageURL(user) {
   var userProfileImageURL = null;
   try {
-    var gsReference = storage.refFromURL(user.photoURL);
+    var gsReference = storage.ref(user.photoURL);
     await gsReference.getDownloadURL().then(function(url) {
       userProfileImageURL = url;
     });
@@ -185,13 +185,11 @@ async function getUserProfileImageURL(user) {
 }
 
 async function buildNav(user) {
-
   if (!user) {
     user = {
       displayName: "null",
     }
   }
-
   profileImageURL = await getUserProfileImageURL(user);
   const navbar = document.getElementById('navbar');
   navbar.innerHTML = `
@@ -275,9 +273,7 @@ async function buildNav(user) {
 var filePicker = document.querySelector('#imageFilePicker');
 var filePickerLabel = document.querySelector(".custom-file-label");
 // Updates the text on filePicker to the name(s) of the file(s) chosen
-filePicker.addEventListener('change', (e) => {
-  filePickerChangeEvent(e);
-});
+filePicker.addEventListener('change', (e) => {filePickerChangeEvent(e);});
 
 function filePickerChangeEvent(e) {
   // Displays chosen files to the user
