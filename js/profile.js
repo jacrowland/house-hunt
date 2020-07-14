@@ -35,7 +35,7 @@ async function createUpdateProfileForm(user){
   var photoURL = await getUserProfileImageURL(user);
   main.innerHTML = `
   <div class="row align-content-center justify-content-center">
-    <form id="updateProfileForm" class="col-sm-5">
+    <form id="updateProfileForm" class="col-md-5 mb-5">
           <img src="${photoURL}" class="mb-3" style="height: 200px">
           <div class="custom-file" >
             <small> Update Profile Picture </small>
