@@ -4,75 +4,60 @@ var userIDInput;
 var updateProfileForm;
 var currentUser;
 
-// Listen for Auth status changes
-auth.onAuthStateChanged(async function(user) {
-    if (user) {
-      currentUser = user;
-      await createUpdateProfileForm(user);
-      updateProfileForm = document.querySelector("#updateProfileForm");
-      displayNameInput = document.querySelector("#displayName");
-      userIDInput = document.querySelector("#uid");
-      emailInput = document.querySelector("#email");
-      filePicker = document.querySelector("#imageFilePicker");
-      filePickerLabel = document.querySelector(".custom-file-label");
-      filePicker.addEventListener('change', (e) => {filePickerChangeEvent(e);});
-
-      updateProfileForm.addEventListener("submit", e => {
-        e.preventDefault();
-        user.updateProfile({
-          displayName: displayNameInput.value,
-          email: emailInput.value
-        }).then(async function(){
-          if (filePicker.files.length > 0) await updateProfilePicture(filePicker.files, currentUser);
-          location.reload();
-        });
-      });
-    }
+async function getProfileDoc(uid) {
+  var docRef = db.collection("users").doc(uid);
+  var userDoc;
+  await docRef.get().then((doc) => {
+    userDoc = doc;
+  }).catch((err) => {
+    console.log(err.message);
   });
+  return userDoc;
+}
 
-async function createUpdateProfileForm(user){
+// takes a userID and returns all property doc with a matching UID field
+async function getUserPropertyDocs(uid) {
+  var userPropertyDocs;
+  await db.collection('properties').where("user.uid", "==", uid).get().then(await function(querySnapshot) {
+    userPropertyDocs = querySnapshot;
+  });
+  console.log(userPropertyDocs);
+  return userPropertyDocs;
+}
+
+async function createProfile()  {
+  const uid = getIDFromURL();
+  const userDoc = await getProfileDoc(uid);
+  var user = userDoc.data();
+  const userPropertyDocs = await getUserPropertyDocs(uid);
   const main = document.querySelector("#main");
   var photoURL = await getUserProfileImageURL(user);
+  var memberSince = user.created.toDate().toString().slice(0, 15);
   main.innerHTML = `
-  <div class="row align-content-center justify-content-center">
-    <form id="updateProfileForm" class="col-md-5 mb-5">
-          <img src="${photoURL}" class="mb-3" style="height: 200px">
-          <div class="custom-file" >
-            <small> Update Profile Picture </small>
-            <input accept=".jpeg, .jpg, .png" type="file" class="custom-file-input" id="imageFilePicker">
-            <label style="overflow:hidden;" class="custom-file-label" for="customFile">Choose file</label>
+  <div class="align-content-center justify-content-center" >
+    <form id="ProfileForm" class="row mt-3 mb-5 p-2 profile" >
+          <div class="col-lg-4 col-md-6" style="text-align: center;">
+            <img src="${photoURL}" style="border-radius:100%;height: 285px">
           </div>
-          <label for="uid"> <small>UserID</small> </label>
-          <input class="form-control" maxlength="50" type="text" value="${user.uid}" id="uid" disabled>
-          <label for="displayName"><small>Display Name</small></label>
-          <input class="form-control" value="${user.displayName}" id="displayName"></input>
-          <label for="email"><small>Email Address</small></label>
-          <input class="form-control" value="${user.email}" id="email"></input>
-          <br>
-          <button type="submit" class="btn btn-block btn-primary"> Update </button>
+          <div class="col-lg-8 col-md-6">
+            <h3> Profile </h3>
+            <label for="uid"> <small>UserID</small> </label>
+            <input class="form-control" maxlength="50" type="text" value="${user.uid}" id="uid" disabled>
+            <label for="displayName"><small>Display Name</small></label>
+            <input class="form-control" value="${user.displayName}" id="displayName" disabled></input>
+            <label for="memberSince"><small>Member Since</small></label>
+            <input class="form-control" value="${memberSince}" id="memberSince" disabled></input>
+            <br>
+          </div>
+
     </form>
+    <div id="searchResults">
+      <!-- populated by displaySearchResults(docs) -->
+    </div>
+    <div style="height: 100px"></div>
   </div> <!-- /.row -->
   `
-  return;
+  displaySearchResults(userPropertyDocs);
 }
 
-async function updateProfilePicture(files, user) {
-  const file = files[0];
-  const fileType = file.name.split('.').pop();
-  var imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-  const path = user.uid + "/" + "profile" + "/" + imageName;
-  const storageRef = firebase.storage().ref(path);
-  const res = await storageRef.put(file).then(async function(snapshot) {
-    console.log("Success! " + file.name + " has been uploaded.");
-    await user.updateProfile({
-      photoURL: path
-    }).then(() => {
-      console.log(path);
-      console.log("Successfully updated the user's profile picture");
-    }).catch((err) => {
-      console.log(err.message); //failed to set profileURL
-    });
-  }).catch((err) => {
-    console.log(err.message); //failed to upload image
-  });
-}
+createProfile();

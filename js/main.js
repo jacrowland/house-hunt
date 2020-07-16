@@ -241,6 +241,20 @@ async function buildNav(user) {
             </svg>
             Saved Properties
           </a>
+          <a class="dropdown-item" href="profile.html?${user.uid}">
+          <svg style="margin-top: -3px" width="1em" height="1em"  viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          </svg>
+            Profile
+          </a>
+          <a class="dropdown-item" href="updateprofile.html?${user.uid}">
+          <svg style="margin-top: -3px" width="1em" height="1em" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+            Edit Profile
+          </a>
           <a class="dropdown-item" href="submitproperty.html">
           <svg style="margin-top: -3px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
@@ -303,6 +317,129 @@ if (regionSelector != null && districtSelector != null) {
     }
   });
 }
+
+// Returns the doc id from the page url
+// e.g view.html?abcd123 => abcd123
+function getIDFromURL() {
+  url = window.location.href ;
+  url = url.split("?");
+  return url.pop();
+}
+
+const displaySearchResults = (snapshot) => {
+  const propertiesList = document.querySelector("#searchResults");
+  propertiesList.innerHTML = `<div class='container'><h2> Results <small> Our hunters found ${snapshot.size} result(s) </small></h2><br></div>`;
+  let card = null;
+  snapshot.forEach(async doc => {
+    var cardID = doc.id;
+    // retrieve content from doc
+    const property = doc.data();
+    var imageURLS = await getImageURLS(property.images);
+    var slides = getCarouselSlides(imageURLS, 3);
+    var address = getPropertyAddressString(property);
+
+    card = `
+    <div class="mb-3 card col-xl-8 col-lg-12 col-md-12 propertyResultCard">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 pl-0 pr-0">
+          <div id="${cardID}" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              ${slides}
+            </div>
+            <a class="carousel-control-prev" href="#${cardID}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#${cardID}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="card-body col-md-6 col-sm-12">
+          <h5 class="card-title"><a class="text-dark" href="view.html?${doc.id}">${address}, ${property.location.suburb} </a></h5>
+          <h6>${property.location.district}<small> ${property.location.region}</small></h6>
+          <hr>
+          <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle mb-2"><strong>${property.tagline}</strong></h6>
+          <h6 style="color:rgba(56, 173, 169, 1);" class="card-subtitle text-muted"><strong>${getMethodOfSaleString(property)}</strong></h6>
+          <div class="row">
+            <div class="container">
+              <img style="height: 20px;"src="icons/toilet.svg" alt="bedroom icon">
+              ${property.details.bedrooms}
+              <img style="height: 20px;"src="icons/bed.svg" alt="bedroom icon">
+              ${property.details.bathrooms}
+            </div>
+          </div>
+          <hr>
+          <p class="card-text">${property.description.substring(0, 70)}...</p>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <a href="view.html?${doc.id}" class="w-100 btn btn-primary btn-lg"><small>View more</small></a>
+            </div>
+            <div class="col">
+              <a href="profile.html?${property.user.uid}" class="float-right btn-lg btn-secondary card-link" >
+                <small>${property.user.displayName}</small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- card -->
+    `
+    //console.log(card);
+    propertiesList.innerHTML += card
+  });
+   propertiesList.style.display = "";
+}
+
+// Takes array of web urls for images and returns html for bootstrap carousel-item
+function getCarouselSlides(imageURLS, maxSlides) {
+  var html = "";
+  var numSlides = 1;
+  if (maxSlides > imageURLS.length) {
+    numSlides = imageURLS.length;
+  }
+  else {
+    numSlides = maxSlides;
+  }
+
+  for (i = 0; i < numSlides; i++) {
+    if (i == 0) {
+      html += `<div class="carousel-item active">`
+    }
+    else {
+      html += `<div class="carousel-item">`
+    }
+    html += `
+      <img style="" class="d-block" src="${imageURLS[i]}">
+    </div>
+    `;
+  }
+  return html;
+}
+
+// Given an id return the property doc
+async function getPropertyDoc(id) {
+  var docRef = db.collection("properties").doc(id);
+  var propertyDoc;
+  await docRef.get().then(function(doc) {
+    propertyDoc = doc;
+  }).catch((err)=> {
+    console.log(err.message);
+  });
+  return propertyDoc;
+}
+
+// Returns a string based on if the property has a second address line (i.e apartment floor etc.)
+function getPropertyAddressString(property) {
+  var address = property.location.address;
+  if (property.location.address2 != "" && property.location.address2 != null) {
+    address = property.location.address2 + ", " + address;
+  }
+  return address;
+}
+
 
 function main() {
   setupUI();

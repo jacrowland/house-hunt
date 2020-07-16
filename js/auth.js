@@ -75,8 +75,19 @@ try {
         displayName:  signUpForm['displayName'].value,
       }).then(function() {
         // Update successful.
+        // Adding to firestore collection for profile querying
+        db.collection('users').doc(firebase.auth().currentUser.uid).set({
+          created: firebase.firestore.Timestamp.now(),
+          uid: firebase.auth().currentUser.uid,
+          displayName: firebase.auth().currentUser.displayName,
+          photoURL: firebase.auth().currentUser.photoURL
+        }).then(function(docRef){
+          // Update successful.
+        }).catch(function(error) {
+          console.log(error.message);
+        });
       }).catch(function(error) {
-        // An error happened.
+        console.log(error.message);
       });
       signUpForm.reset();
     });
@@ -130,4 +141,26 @@ function signInWithGoogle() {
     var credential = error.credential;
     console.log(errorMessage);
   });
+}
+
+async function updateProfilePicture(files, user) {
+  const file = files[0];
+  const fileType = file.name.split('.').pop();
+  var imageName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  const path = user.uid + "/" + "profile" + "/" + imageName;
+  const storageRef = firebase.storage().ref(path);
+  const res = await storageRef.put(file).then(async function(snapshot) {
+    console.log("Success! " + file.name + " has been uploaded.");
+    await user.updateProfile({
+      photoURL: path
+    }).then(() => {
+      console.log(path);
+      console.log("Successfully updated the user's profile picture");
+    }).catch((err) => {
+      console.log(err.message); //failed to set profileURL
+    });
+  }).catch((err) => {
+    console.log(err.message); //failed to upload image
+  });
+  return path;
 }
