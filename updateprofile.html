@@ -21,9 +21,7 @@
   </nav>
 
   <div id="subNav">
-    <div class="container text-light">
-      <a class="text-light" href="dashboard.html">Dashboard</a> > <a class="text-light" href="profile.html">Profile</a> > <a class="text-light" href="updateprofile.html">Edit Profile</a>
-    </div>
+
   </div>
 
   <div class="jumbotron p-4">
@@ -55,6 +53,16 @@
     <script src="js/auth.js"></script>
     <script src="js/updateprofile.js"></script>
     <script>
+    var subNav = document.querySelector("#subNav");
+    var uid = getIDFromURL();
+    subNav.innerHTML = 
+    `
+    <div class="container text-light">
+      <a class="text-light" href="dashboard.html">Dashboard</a> >
+      <a class="text-light" href="profile.html?${uid}">Profile</a> >
+      <a class="text-light" href="updateprofile.html">Edit Profile</a>
+    </div>
+    `
 
     </script>
 </html>

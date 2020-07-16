@@ -32,7 +32,7 @@ async function createProfile()  {
   const userPropertyDocs = await getUserPropertyDocs(uid);
   const main = document.querySelector("#main");
   var photoURL = await getUserProfileImageURL(user);
-  var memberSince = user.created.toDate().toString().slice(0, 15);
+  var memberSince = user.created.toDate().toString().slice(4, 15);
   main.innerHTML = `
   <div class="align-content-center justify-content-center" >
     <form id="ProfileForm" class="row mt-3 mb-5 p-2 profile" >

@@ -23,16 +23,16 @@ auth.onAuthStateChanged(async function(user) {
           displayName: displayNameInput.value,
           email: emailInput.value
         }).then(async function(){
-          var path;
+          // if user has selected a new profile photo
           if (filePicker.files.length > 0) {
-            path = await updateProfilePicture(filePicker.files, currentUser);
+            var path = await updateProfilePicture(filePicker.files, currentUser);
+            await db.collection("users").doc(user.uid).update({
+              photoURL: path,
+            }).then(() => {}).catch((err) => {console.log(err);});
           }
-          console.log(path);
-          db.collection("users").doc(user.uid).update({
+          await db.collection("users").doc(user.uid).update({
             displayName: displayNameInput.value,
-            photoURL: path
           }).then(() => {
-            // success
           }).catch((err) => {
             console.log(err);
           });
@@ -47,7 +47,7 @@ async function createUpdateProfileForm(user){
   var photoURL = await getUserProfileImageURL(user);
   main.innerHTML = `
   <div class="row align-content-center justify-content-center">
-    <form id="updateProfileForm" class="col-md-5 mb-5">
+    <form id="updateProfileForm" class="p-3 profile col-md-5 mb-5">
           <img src="${photoURL}" class="mb-3" style="height: 200px">
           <div class="custom-file" >
             <small> Update Profile Picture </small>
