@@ -220,7 +220,7 @@ async function buildNav(user) {
       <div class="btn-group logged-in">
         <button type="button" class="btn btn-sm btn-user dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <small id="usernameDropdownText">${user.displayName}</small>
-          <img src="${profileImageURL}" style="margin-top:-4px;height: 30px;">
+          <img src="${profileImageURL}" style="border-radius: 100%; margin-top:-4px;height: 30px;width:30px;">
         </button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="dashboard.html">
