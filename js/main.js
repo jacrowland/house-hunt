@@ -156,6 +156,7 @@ function getMethodOfSaleString(property) {
 
 async function setupUI(user) {
   await buildNav(user);
+  setActiveNav(window.location.href.split("/").pop());
   var loggedInElements = document.getElementsByClassName("logged-in");
   var loggedOutElements = document.getElementsByClassName("logged-out");
   // Hides all elements with logged-in class if the user is logged out
@@ -167,6 +168,25 @@ async function setupUI(user) {
   else if (!user) {
     for (var i = 0; i < loggedInElements.length; i++) loggedInElements[i].style.display = "none";
     for (var i = 0; i < loggedOutElements.length; i++) loggedOutElements[i].style.display = "";
+  }
+
+}
+
+function setActiveNav(path) {
+  if (path == "index.html") {
+    // Set current page as active in nav
+    var homePageLink = document.querySelector("#homePageLink");
+    homePageLink.classList.add("active");
+  } else if (path == "residential.html") {
+    // Set current page as active in nav
+    var residentialPageLink = document.querySelector("#residentialPageLink");
+    residentialPageLink.classList.add("active");
+  } else if (path == "commercial.html") {
+    var commercialPageLink = document.querySelector("#commercialPageLink");
+    commercialPageLink.classList.add("active");
+  } else if (path == "about.html") {
+    var aboutPageLink = document.querySelector("#aboutPageLink");
+    aboutPageLink.classList.add("active");
   }
 }
 
@@ -321,7 +341,7 @@ if (regionSelector != null && districtSelector != null) {
 // Returns the doc id from the page url
 // e.g view.html?abcd123 => abcd123
 function getIDFromURL() {
-  url = window.location.href ;
+  url = window.location.href;
   url = url.split("?");
   return url.pop();
 }
@@ -443,7 +463,9 @@ function getPropertyAddressString(property) {
 
 function main() {
   setupUI();
-  populateSearchSelector(regionSelector);
+  try {
+    populateSearchSelector(regionSelector);
+  } catch (err) {}
 }
 
 main();
