@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Jacob Rowland">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Profile</title>
+    <link rel="icon" href="images\house_hunt_icon.png">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm" id="navbar">
+    <!-- built in main.js by setupUI() -->
+  </nav>
+
+  <div class="row w-100 h-100 justify-content-center dashboard-outer text-light">
+      <div class="col-lg-2 col-md-4 col-sm-12">
+        <nav id="dashboardNav" class="nav flex-column bg-light pl-4 pr-4 h-100 pt-1">
+          <h3 class="pl-3 mt-3 text-dark display-6"> Dashboard </h3>
+          <hr class="w-100">
+          <a class="nav-link active" href="#">Manage Properties</a>
+          <a class="nav-link" href="#">Submit Property</a>
+          <a class="nav-link disabled" href="#">Saved Properties</a>
+          <hr class="w-100">
+          <a class="nav-link " href="profile.html">My Profile</a>
+          <a class="nav-link" href="updateprofile.html">Edit Profile</a>
+          <hr class="w-100">
+          <a class="btn btn-danger btn-block" onclick="logout()">Logout</a>
+          <hr class="w-100">
+        </nav>
+      </div>
+      <div id="dashboardPage" class="col-md-8 mt-3">
+        <div id="dashboardPageJumbotron" class="pt-3 pb-3 align-middle jumbotron-fluid jumbotron">
+          <h1 class="text-center display-4"> Welcome, {user.displayName}. </h1>
+        </div>
+        <div id="dashboardPageContent" class="text-dark p-0 m-0">
+          This div will dynamically change depending on the nav option chosen
+        </div>
+      </div>
+
+  </div>
+
+  <!-- Main Content -->
+  <main role="main" id="main" class="container align-content-center">
+      <!-- form loaded in profile.js -->
+  </main><!-- /.container -->
+
+  <footer class="text-dark text-center fixed-bottom" style="background: linear-gradient(0deg, rgba(0,0,0,0.4) 5%, rgba(255,255,255,0) 80%);">
+    <p class="text-white" style="margin-top: 30px;"> Site by Jacob Rowland (2020) </p>
+  </footer>
+    </body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script>
+
+    </script>
+</html>
