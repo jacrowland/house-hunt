@@ -460,6 +460,16 @@ function getPropertyAddressString(property) {
   return address;
 }
 
+// takes a userID and returns all property doc with a matching UID field
+async function getUserPropertyDocs(uid) {
+  var userPropertyDocs;
+  await db.collection('properties').where("user.uid", "==", uid).get().then(await function(querySnapshot) {
+    userPropertyDocs = querySnapshot;
+  });
+  console.log(userPropertyDocs);
+  return userPropertyDocs;
+}
+
 
 function main() {
   setupUI();
