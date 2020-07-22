@@ -15,15 +15,6 @@ async function getProfileDoc(uid) {
   return userDoc;
 }
 
-// takes a userID and returns all property doc with a matching UID field
-async function getUserPropertyDocs(uid) {
-  var userPropertyDocs;
-  await db.collection('properties').where("user.uid", "==", uid).get().then(await function(querySnapshot) {
-    userPropertyDocs = querySnapshot;
-  });
-  console.log(userPropertyDocs);
-  return userPropertyDocs;
-}
 
 async function createProfile()  {
   const uid = getIDFromURL();
@@ -49,7 +40,6 @@ async function createProfile()  {
             <input class="form-control" value="${memberSince}" id="memberSince" disabled></input>
             <br>
           </div>
-
     </form>
     <div id="searchResults">
       <!-- populated by displaySearchResults(docs) -->
