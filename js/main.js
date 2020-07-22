@@ -466,7 +466,6 @@ async function getUserPropertyDocs(uid) {
   await db.collection('properties').where("user.uid", "==", uid).get().then(await function(querySnapshot) {
     userPropertyDocs = querySnapshot;
   });
-  console.log(userPropertyDocs);
   return userPropertyDocs;
 }
 

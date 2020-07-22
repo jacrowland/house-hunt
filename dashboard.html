@@ -20,28 +20,34 @@
     <!-- built in main.js by setupUI() -->
   </nav>
 
+  <div id="subNav">
+    <div class="container text-light">
+      &#8205;
+    </div>
+  </div>
+
+
   <div class="row w-100 h-100 justify-content-center dashboard-outer text-light">
       <div class="col-lg-2 col-md-4 col-sm-12">
         <nav id="dashboardNav" class="nav flex-column bg-light pl-4 pr-4 h-100 pt-1">
           <h3 class="pl-3 mt-3 text-dark display-6"> Dashboard </h3>
           <hr class="w-100">
-          <a class="nav-link active" href="#">Manage Properties</a>
-          <a class="nav-link" href="#">Submit Property</a>
-          <a class="nav-link disabled" href="#">Saved Properties</a>
+          <a class="nav-link" onclick="buildManageProperties(); return false;" href="#">Manage Properties</a>
+          <a class="nav-link" onclick="buildSubmitPropertyForm();" href="submitproperty.html">Submit Property</a>
+          <a class="nav-link disabled" onclick="buildSavedProperties(); return false;" href="#">Saved Properties</a>
           <hr class="w-100">
-          <a class="nav-link " href="profile.html">My Profile</a>
-          <a class="nav-link" href="updateprofile.html">Edit Profile</a>
+          <a class="nav-link" onclick="buildEditProfile(); return false;" href="#">Edit Profile</a>
           <hr class="w-100">
-          <a class="btn btn-danger btn-block" onclick="logout()">Logout</a>
+          <a class="nav-link" onclick="logout(); return false;" href="#" >Logout</a>
           <hr class="w-100">
         </nav>
       </div>
       <div id="dashboardPage" class="col-md-8 mt-3">
         <div id="dashboardPageJumbotron" class="pt-3 pb-3 align-middle jumbotron-fluid jumbotron">
-          <h1 class="text-center display-4"> Welcome, {user.displayName}. </h1>
+          <!--<h1 class="text-center display-4"> Welcome, {user.displayName}. </h1>-->
         </div>
         <div id="dashboardPageContent" class="text-dark p-0 m-0">
-          This div will dynamically change depending on the nav option chosen
+          <!-- This div will dynamically change depending on the nav option chosen -->
         </div>
       </div>
 
@@ -68,8 +74,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/profile.js"></script>
+    <script src="js/dashboard.js"></script>
     <script>
-
     </script>
 </html>
