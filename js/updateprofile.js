@@ -16,7 +16,6 @@ auth.onAuthStateChanged(async function(user) {
       filePicker = document.querySelector("#imageFilePicker");
       filePickerLabel = document.querySelector(".custom-file-label");
       filePicker.addEventListener('change', (e) => {filePickerChangeEvent(e);});
-
       updateProfileForm.addEventListener("submit", e => {
         e.preventDefault();
         user.updateProfile({
