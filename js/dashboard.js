@@ -3,10 +3,7 @@ const dashboardPageJumbotron = document.querySelector("#dashboardPageJumbotron")
 
 function setupDashboard(user) {
   dashboardPageJumbotron.innerHTML = `<h1 class="text-center display-4"> Welcome, ${user.displayName}. </h1>`;
-  dashboardPageContent.innerHTML = `
-  - Property showcase  \n
-  - News
-  `
+  dashboardPageContent.innerHTML = `<em>Under construction</em>`
 }
 
 function buildSubmitPropertyForm() {
